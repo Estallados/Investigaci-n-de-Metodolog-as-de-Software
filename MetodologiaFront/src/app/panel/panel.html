@@ -298,9 +298,9 @@
                 class="mb-3 flex items-center justify-between
                      text-xs text-slate-500"
               >
-                <span>{{ item.totalTareas }} tareas</span>
-                <span>{{ item.totalIntegrantes }} integrantes</span>
-                <span class="font-bold text-cyan-400">{{ item.progreso }}%</span>
+                <span>{{ item.tareas.length }} tareas</span>
+                <span>{{ item.usuarios.length }} integrantes</span>
+                <span class="font-bold text-cyan-400">{{ calcularProgreso(item.id) }}%</span>
               </div>
 
 
@@ -309,7 +309,7 @@
 
                 <div
                   class="h-full rounded-full bg-cyan-400"
-                  [style.width.%]="item.progreso"
+                  [style.width.%]="calcularProgreso(item.id)"
                 ></div>
               </div>
 
@@ -326,16 +326,14 @@
   </main>
 
 </div>
-<!-- MODAL CREAR PROYECTO -->
+
 @if (mostrarModal) {
 
-  <!-- FONDO OSCURO -->
   <div
     class="fixed inset-0 z-50 flex items-center justify-center
            bg-black/70 px-4"
   >
 
-    <!-- VENTANA -->
     <div
       class="w-full max-w-lg
              rounded-lg
@@ -344,7 +342,6 @@
              shadow-[10px_10px_0_#020617]"
     >
 
-      <!-- CABECERA -->
       <div
         class="flex items-center justify-between
                border-b-[2px] border-slate-700
@@ -362,7 +359,6 @@
           </p>
         </div>
 
-        <!-- CERRAR -->
         <button
           type="button"
           (click)="cerrarModal()"
@@ -376,13 +372,11 @@
       </div>
 
 
-      <!-- FORMULARIO -->
       <form
         (ngSubmit)="crearProyecto()"
         class="p-6"
       >
 
-        <!-- NOMBRE -->
         <div class="mb-5">
 
           <label
@@ -411,8 +405,6 @@
 
         </div>
 
-
-        <!-- DESCRIPCIÓN -->
         <div class="mb-6">
 
           <label
@@ -441,11 +433,8 @@
 
         </div>
 
-
-        <!-- BOTONES -->
         <div class="flex justify-end gap-3">
 
-          <!-- CANCELAR -->
           <button
             type="button"
             (click)="cerrarModal()"
@@ -461,7 +450,6 @@
           </button>
 
 
-          <!-- CREAR -->
           <button
             type="submit"
             class="rounded-lg
@@ -485,165 +473,5 @@
     </div>
 
   </div>
-  <!-- MODAL CREAR PROYECTO -->
-  @if (mostrarModal) {
 
-    <!-- FONDO OSCURO -->
-    <div
-      class="fixed inset-0 z-50 flex items-center justify-center
-           bg-black/70 px-4"
-    >
-
-      <!-- VENTANA -->
-      <div
-        class="w-full max-w-lg
-             rounded-lg
-             border-[2px] border-slate-700
-             bg-slate-900
-             shadow-[10px_10px_0_#020617]"
-      >
-
-        <!-- CABECERA -->
-        <div
-          class="flex items-center justify-between
-               border-b-[2px] border-slate-700
-               bg-slate-800
-               px-6 py-4"
-        >
-
-          <div>
-            <h2 class="text-xl font-bold text-white">
-              Crear proyecto
-            </h2>
-
-            <p class="mt-1 text-xs text-slate-400">
-              Completa la información de tu proyecto
-            </p>
-          </div>
-
-          <!-- CERRAR -->
-          <button
-            type="button"
-            (click)="cerrarModal()"
-            class="text-2xl font-bold text-slate-400
-                 transition-colors
-                 hover:text-cyan-400"
-          >
-            ×
-          </button>
-
-        </div>
-
-
-        <!-- FORMULARIO -->
-        <form
-          (ngSubmit)="crearProyecto()"
-          class="p-6"
-        >
-
-          <!-- NOMBRE -->
-          <div class="mb-5">
-
-            <label
-              for="nombreProyecto"
-              class="mb-2 block text-sm font-bold text-white"
-            >
-              Nombre del proyecto
-            </label>
-
-            <input
-              id="nombreProyecto"
-              name="nombreProyecto"
-              type="text"
-              [(ngModel)]="nombreProyecto"
-              required
-              placeholder="Ej: Plataforma de gestión"
-              class="w-full rounded-lg
-                   border-2 border-slate-700
-                   bg-slate-950
-                   px-4 py-3
-                   text-white
-                   outline-none
-                   placeholder:text-slate-600
-                   focus:border-cyan-400"
-            >
-
-          </div>
-
-
-          <!-- DESCRIPCIÓN -->
-          <div class="mb-6">
-
-            <label
-              for="descripcionProyecto"
-              class="mb-2 block text-sm font-bold text-white"
-            >
-              Descripción
-            </label>
-
-            <textarea
-              id="descripcionProyecto"
-              name="descripcionProyecto"
-              [(ngModel)]="descripcionProyecto"
-              required
-              rows="5"
-              placeholder="Describe brevemente el proyecto..."
-              class="w-full resize-none rounded-lg
-                   border-2 border-slate-700
-                   bg-slate-950
-                   px-4 py-3
-                   text-white
-                   outline-none
-                   placeholder:text-slate-600
-                   focus:border-cyan-400"
-            ></textarea>
-
-          </div>
-
-
-          <!-- BOTONES -->
-          <div class="flex justify-end gap-3">
-
-            <!-- CANCELAR -->
-            <button
-              type="button"
-              (click)="cerrarModal()"
-              class="rounded-lg
-                   border-2 border-slate-700
-                   px-5 py-3
-                   font-bold text-slate-400
-                   transition-all
-                   hover:border-slate-500
-                   hover:text-white"
-            >
-              Cancelar
-            </button>
-
-
-            <!-- CREAR -->
-            <button
-              type="submit"
-              class="rounded-lg
-                   border-2 border-cyan-400
-                   bg-cyan-400
-                   px-5 py-3
-                   font-bold text-slate-950
-                   shadow-[5px_5px_0_#0f172a]
-                   transition-all duration-200
-                   hover:-translate-x-1
-                   hover:-translate-y-1
-                   hover:shadow-[8px_8px_0_#0f172a]"
-            >
-              Crear proyecto
-            </button>
-
-          </div>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  }
 }

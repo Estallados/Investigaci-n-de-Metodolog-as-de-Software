@@ -1,7 +1,7 @@
 import { Estado } from './Estado';
 
 export interface TareaDTO {
-  id: number;
+  id: number | null;
   nombre: string;
   descripcion: string;
   fechaEntrega: string;
