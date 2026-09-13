@@ -1,17 +1,84 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { Login } from './login/login';
+import { Metodologias } from './metodologias/metodologias';
+import { Scrum } from './metodologias/scrum/scrum';
+import { ExtremeProgramming } from './metodologias/extreme-programming/extreme-programming';
+import { Espiral } from './metodologias/espiral/espiral';
+import { Cascada } from './metodologias/cascada/cascada';
+import { Kanban } from './metodologias/kanban/kanban';
+import { Prototipos } from './metodologias/prototipos/prototipos';
+import { Register } from './register/register';
+import { Perfil } from './perfil/perfil';
+import { Proyectos } from './proyectos/proyectos';
+import { Detalle } from './proyectos/detalle/detalle';
+import { Panel } from './panel/panel';
 
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
     component: Home
-  },{
-    path: 'Login',
+  },
+  {
+    path: 'metodologias',
+    component: Metodologias
+  },
+  {
+    path: 'metodologias/scrum',
+    component: Scrum
+  },
+  {
+    path: 'metodologias/prototipos',
+    component: Prototipos
+  },
+  {
+    path: 'metodologias/kanban',
+    component: Kanban
+  },
+  {
+    path: 'metodologias/cascada',
+    component: Cascada
+  },
+  {
+    path: 'metodologias/espiral',
+    component: Espiral
+  },
+  {
+    path: 'metodologias/xp',
+    component: ExtremeProgramming
+  },
+  {
+    path: 'login',
     component: Login
   },
   {
+    path: 'register',
+    component: Register
+  },
+  {
+    path: 'perfil',
+    component: Perfil
+  },
+  {
+    path: 'panel',
+    component: Panel
+  },
+  {
+    path: 'proyectos',
+    component: Proyectos
+  },
+  {
+    path: 'proyectos/:proyecto',
+    component: Detalle
+  },
+  {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'Login'
   }
 ];
+
