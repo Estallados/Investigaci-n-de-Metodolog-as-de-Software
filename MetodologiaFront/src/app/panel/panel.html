@@ -1,1 +1,350 @@
-<p>panel works!</p>
+<div class="min-h-screen bg-slate-950 text-slate-300">
+
+  <!-- CONTENIDO -->
+  <main class="mx-auto max-w-7xl px-6 py-10">
+
+    <!-- HEADER -->
+    <div class="mb-10 flex flex-wrap items-start justify-between gap-5">
+
+      <div>
+        <p class="mb-1 text-sm text-slate-400">
+          Bienvenido de nuevo,
+        </p>
+
+        <h1 class="text-3xl font-bold text-white">
+          NAMEHOLDER
+        </h1>
+
+        <p class="mt-2 text-sm text-slate-400">
+          Aquí puedes consultar el estado de tus proyectos y tareas.
+        </p>
+      </div>
+
+      <a
+        routerLink="/proyectos/crear"
+        class="inline-flex items-center gap-2 rounded-lg
+               border-2 border-cyan-400
+               bg-cyan-400 px-5 py-3
+               font-bold text-slate-950
+               shadow-[5px_5px_0_#0f172a]
+               transition-all duration-200
+               hover:-translate-x-1
+               hover:-translate-y-1
+               hover:shadow-[8px_8px_0_#0f172a]"
+      >
+        <span class="text-lg">+</span>
+        Crear proyecto
+      </a>
+
+    </div>
+
+
+    <!-- ESTADÍSTICAS -->
+    <section class="mb-10">
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+        <!-- PROYECTOS -->
+        <div
+          class="rounded-lg border-[2px] border-slate-700
+                 bg-slate-900 p-5
+                 shadow-[5px_5px_0_#0f172a]
+                 transition-all duration-200
+                 hover:-translate-x-1
+                 hover:-translate-y-1
+                 hover:border-cyan-400"
+        >
+
+          <div class="mb-4 flex items-center justify-between">
+
+            <div
+              class="flex h-10 w-10 items-center justify-center
+                     rounded-lg bg-slate-800
+                     text-cyan-400"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+
+          </div>
+
+          <p class="text-sm text-slate-400">
+            Proyectos
+          </p>
+
+          <p class="mt-1 text-3xl font-bold text-white">
+            3
+          </p>
+
+          <p class="mt-2 text-xs text-slate-500">
+            proyectos activos
+          </p>
+
+        </div>
+
+
+        <!-- TAREAS PENDIENTES -->
+        <div
+          class="rounded-lg border-[2px] border-slate-700
+                 bg-slate-900 p-5
+                 shadow-[5px_5px_0_#0f172a]
+                 transition-all duration-200
+                 hover:-translate-x-1
+                 hover:-translate-y-1
+                 hover:border-cyan-400"
+        >
+
+          <div
+            class="mb-4 flex h-10 w-10 items-center justify-center
+                   rounded-lg bg-slate-800
+                   text-cyan-400"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+
+          <p class="text-sm text-slate-400">
+            Tareas pendientes
+          </p>
+
+          <p class="mt-1 text-3xl font-bold text-white">
+            8
+          </p>
+
+          <p class="mt-2 text-xs text-slate-500">
+            3 en progreso
+          </p>
+
+        </div>
+
+
+        <!-- COMPLETADAS -->
+        <div
+          class="rounded-lg border-[2px] border-slate-700
+                 bg-slate-900 p-5
+                 shadow-[5px_5px_0_#0f172a]
+                 transition-all duration-200
+                 hover:-translate-x-1
+                 hover:-translate-y-1
+                 hover:border-cyan-400"
+        >
+
+          <div
+            class="mb-4 flex h-10 w-10 items-center justify-center
+                   rounded-lg bg-slate-800
+                   text-cyan-400"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+
+          <p class="text-sm text-slate-400">
+            Tareas completadas
+          </p>
+
+          <p class="mt-1 text-3xl font-bold text-white">
+            12
+          </p>
+
+          <p class="mt-2 text-xs text-slate-500">
+            tareas completadas
+          </p>
+
+        </div>
+
+
+        <!-- PROGRESO -->
+        <div
+          class="rounded-lg border-[2px] border-slate-700
+                 bg-slate-900 p-5
+                 shadow-[5px_5px_0_#0f172a]
+                 transition-all duration-200
+                 hover:-translate-x-1
+                 hover:-translate-y-1
+                 hover:border-cyan-400"
+        >
+
+          <div
+            class="mb-4 flex h-10 w-10 items-center justify-center
+                   rounded-lg bg-slate-800
+                   text-cyan-400"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+
+          <p class="text-sm text-slate-400">
+            Progreso general
+          </p>
+
+          <p class="mt-1 text-3xl font-bold text-white">
+            65%
+          </p>
+
+          <p class="mt-2 text-xs text-slate-500">
+            de todas las tareas
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MIS PROYECTOS -->
+    <section>
+
+      <div class="mb-6 flex items-center justify-between">
+
+        <div>
+          <h2 class="text-2xl font-bold text-white">
+            Mis proyectos
+          </h2>
+
+          <p class="mt-1 text-sm text-slate-400">
+            Proyectos en los que estás trabajando actualmente.
+          </p>
+        </div>
+
+
+      </div>
+
+
+      <!-- GRID DE PROYECTOS -->
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+
+        <a
+          routerLink="/proyectos/placeholder"
+          class="group block"
+        >
+
+          <div
+            class="h-full rounded-lg
+                   border-[2px] border-slate-700
+                   bg-slate-900 p-5
+                   shadow-[6px_6px_0_#0f172a]
+                   transition-all duration-200
+                   group-hover:-translate-x-1
+                   group-hover:-translate-y-1
+                   group-hover:border-cyan-400
+                   group-hover:shadow-[9px_9px_0_#0f172a]"
+          >
+
+            <!-- TITULO -->
+            <div class="mb-4 flex items-start justify-between">
+
+              <div>
+
+                <h3 class="text-lg font-bold text-white">
+                  Plataforma de gestión
+                </h3>
+
+                <span
+                  class="mt-2 inline-block rounded-md
+                         border border-cyan-400/40
+                         bg-cyan-400/10
+                         px-2 py-1
+                         text-xs font-bold
+                         text-cyan-400"
+                >
+                  Scrum
+                </span>
+
+              </div>
+
+              <span class="text-slate-500 transition-colors group-hover:text-cyan-400">
+                →
+              </span>
+
+            </div>
+
+
+            <!-- DESCRIPCIÓN -->
+            <p class="mb-6 text-sm leading-relaxed text-slate-400">
+              Plataforma para gestionar proyectos de desarrollo
+              utilizando diferentes metodologías de software.
+            </p>
+
+
+            <!-- INFO -->
+            <div
+              class="mb-3 flex items-center justify-between
+                     text-xs text-slate-500"
+            >
+              <span>8 tareas</span>
+              <span>4 integrantes</span>
+              <span class="font-bold text-cyan-400">75%</span>
+            </div>
+
+
+            <!-- PROGRESS BAR -->
+            <div class="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+
+              <div
+                class="h-full w-[75%] rounded-full bg-cyan-400"
+              ></div>
+
+            </div>
+
+
+            <!-- FECHAS -->
+            <div
+              class="mt-4 flex items-center justify-between
+                     text-xs text-slate-500"
+            >
+              <span>01/09/2026</span>
+              <span>→</span>
+              <span>30/10/2026</span>
+            </div>
+
+          </div>
+
+        </a>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

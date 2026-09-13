@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import {RouterLink} from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-panel',
-  styles: ``,
   templateUrl: './panel.html',
 })
-export class Panel {}
+export class Panel {
+
+}
