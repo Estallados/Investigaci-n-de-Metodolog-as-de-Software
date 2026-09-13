@@ -49,7 +49,7 @@
       de proyectos, explicadas de forma clara y organizada. Podrás conocer sus principales <br>
       características, ventajas, etapas y formas de aplicación, con el objetivo de comprender <br>
       cuál metodología puede adaptarse mejor a las necesidades de cada proyecto.
-      </p>
+    </p>
 
 
     <div class="wrapper">
@@ -64,9 +64,25 @@
 
     <div class="form">
       <h2>Login Here</h2>
-      <input type="email" name="email" placeholder="Enter Email Here">
-      <input type="password" name="" placeholder="Enter Password Here">
-      <button class="btnn"><a href="#">Login</a></button>
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter Email Here"
+        [(ngModel)]="correo">
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter Password Here"
+        [(ngModel)]="contrasenia">
+
+      <button
+        class="btnn"
+        type="button"
+        (click)="iniciarSesion()">
+        <a href="#" (click)="$event.preventDefault()">Login</a>
+      </button>
 
       <p class="link">Don't have an account<br>
         <a href="#">Sign up </a> here</p>

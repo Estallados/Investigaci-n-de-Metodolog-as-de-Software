@@ -61,8 +61,17 @@ export class UsuarioService {
     );
   }
 
-  login(datos: any): Observable<any> {
-    return this.http.post<any>(
+  login(
+    correo: string,
+    contrasenia: string
+  ): Observable<number> {
+
+    const datos = {
+      correo: correo,
+      contrasenia: contrasenia
+    };
+
+    return this.http.post<number>(
       `${this.apiUrl}/login`,
       datos
     );
