@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { Login } from './login/login';
-import { Metodologias } from './metodologias/metodologias';
 import { Register } from './register/register';
 import { Perfil } from './perfil/perfil';
 import { Proyectos } from './proyectos/proyectos';
 import { Detalle } from './proyectos/detalle/detalle';
 import { Panel } from './panel/panel';
+import {Metodologias} from './metodologias/metodologias';
 
 export const routes: Routes = [
   {

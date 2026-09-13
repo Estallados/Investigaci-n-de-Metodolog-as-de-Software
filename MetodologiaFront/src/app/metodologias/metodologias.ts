@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-metodologias',
-  styleUrl: './metodologias.css',
-  templateUrl: './metodologias.html',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './metodologias.html'
 })
-export class Metodologias {}
+export class Metodologias {
+
+}
