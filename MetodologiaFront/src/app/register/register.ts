@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-register',
-  styles: ``,
+  imports: [RouterLink],
   templateUrl: './register.html',
 })
-export class Register {}
+export class Register {
+
+}
