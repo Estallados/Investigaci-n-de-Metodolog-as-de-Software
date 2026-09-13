@@ -19,6 +19,8 @@ import co.edu.unbosque.metodologiaespiral.dto.ProyectoDTO;
 import co.edu.unbosque.metodologiaespiral.exception.ExceptionCheker;
 import co.edu.unbosque.metodologiaespiral.exception.NegativeNumberException;
 import co.edu.unbosque.metodologiaespiral.service.ProyectoService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 @RestController
 @RequestMapping("/proyectos")
@@ -195,5 +197,49 @@ public class ProyectoController {
         return ResponseEntity
                 .notFound()
                 .build();
+    }
+
+    @GetMapping("/pdf/{id}")
+    public ResponseEntity<byte[]> descargarPdfProyecto(
+            @PathVariable Long id) {
+
+        try {
+
+            ExceptionCheker.checkerNegativeNumber(
+                    id.intValue());
+
+        } catch (NegativeNumberException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .build();
+        }
+
+        if (!proyectoService.exist(id)) {
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+
+        byte[] pdf =
+                proyectoService.generarPdfProyecto(id);
+
+        if (pdf == null) {
+
+            return ResponseEntity
+                    .internalServerError()
+                    .build();
+        }
+
+        return ResponseEntity
+                .ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=proyecto_"
+                                + id
+                                + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
     }
 }

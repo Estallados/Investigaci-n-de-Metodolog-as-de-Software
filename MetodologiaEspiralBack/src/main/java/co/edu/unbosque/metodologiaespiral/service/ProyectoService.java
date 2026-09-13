@@ -16,9 +16,15 @@ import co.edu.unbosque.metodologiaespiral.entity.Usuario;
 import co.edu.unbosque.metodologiaespiral.repository.ProyectoRepository;
 import co.edu.unbosque.metodologiaespiral.repository.TareaRepository;
 import co.edu.unbosque.metodologiaespiral.repository.UsuarioRepository;
+import java.io.IOException;
+import org.springframework.transaction.annotation.Transactional;
+import co.edu.unbosque.metodologiaespiral.util.PDFUtil;
 
 @Service
 public class ProyectoService implements CRUDOperation<ProyectoDTO> {
+
+    @Autowired
+    private PDFUtil pdfUtil;
 
     @Autowired
     private ProyectoRepository proyectoRepo;
@@ -334,5 +340,30 @@ public class ProyectoService implements CRUDOperation<ProyectoDTO> {
         dto.setUsuarios(usuariosDTO);
 
         return dto;
+    }
+
+    @Transactional(readOnly = true)
+    public byte[] generarPdfProyecto(Long id) {
+
+        try {
+
+            Optional<Proyecto> proyectoOpt =
+                    proyectoRepo.findById(id);
+
+            if (proyectoOpt.isEmpty()) {
+                return null;
+            }
+
+            Proyecto proyecto =
+                    proyectoOpt.get();
+
+            return pdfUtil
+                    .generarPdf(proyecto);
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return null;
+        }
     }
 }
