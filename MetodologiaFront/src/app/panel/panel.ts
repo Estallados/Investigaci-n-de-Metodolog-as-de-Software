@@ -51,17 +51,47 @@ export class Panel implements OnInit {
 
   cerrarModal() {
     this.mostrarModal = false;
-    this.nombreProyecto = '';
-    this.descripcionProyecto = '';
   }
 
   crearProyecto() {
+    this.cerrarModal();
 
     console.log('Nombre:', this.nombreProyecto);
     console.log('Descripción:', this.descripcionProyecto);
 
-    // Service
+    const nuevoProyecto: ProyectoDTO = {
+      id: 0,
+      nombre: this.nombreProyecto,
+      descripcion: this.descripcionProyecto,
+      tareas: [],
+      usuarios: []
+    };
 
-    this.cerrarModal();
+    this.proyectoService.crearProyecto(nuevoProyecto).subscribe({
+      next: (proyectoCreado) => {
+        console.log('Proyecto creado:', proyectoCreado);
+        // Recargar los proyectos desde el backend
+        this.cargarProyectos();
+      },
+      error: (error) => {
+        console.error('ERROR AL CREAR PROYECTO:', error);
+      }
+    });
+  }
+
+  calcularProgreso(id: number): number {
+
+    const proyecto = this.proyectos.find(p => p.id === id);
+    if (!proyecto || proyecto.tareas.length === 0) {
+      return 0;
+    }
+
+    const completadas = proyecto.tareas.filter(
+      tarea => tarea.estado === 'COMPLETADO'
+    ).length;
+
+    return Math.round(
+      (completadas / proyecto.tareas.length) * 100
+    );
   }
 }

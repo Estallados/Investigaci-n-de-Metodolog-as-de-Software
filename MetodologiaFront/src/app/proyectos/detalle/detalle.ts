@@ -6,6 +6,8 @@ import {ProyectoDTO} from '../../model/Proyecto.dto';
 import {ProyectoService} from '../../services/proyecto.service';
 import {UsuarioDTO} from '../../model/Usuario.dto';
 import {UsuarioService} from '../../services/usuario.service';
+import {TareaDTO} from '../../model/Tarea.dto';
+import {Estado} from '../../model/Estado';
 
 @Component({
   selector: 'app-detalle',
@@ -94,16 +96,92 @@ export class Detalle implements OnInit {
 
   }
 
-  agregarUsuario() {
+  agregarTarea() {
+    const nombre = (document.getElementById('nombreTarea') as HTMLInputElement).value;
+    const descripcion = (document.getElementById('descripcionTarea') as HTMLTextAreaElement).value;
+    const fechaInicio = (document.getElementById('fechaInicio') as HTMLInputElement).value;
+    const fechaEntrega = (document.getElementById('fechaEntrega') as HTMLInputElement).value;
 
+    if (!nombre.trim()) {
+      return;
+    }
+
+    const nuevaTarea: TareaDTO = {
+      id: null,
+      nombre: nombre,
+      descripcion: descripcion,
+      fechaInicio: fechaInicio,
+      fechaEntrega: fechaEntrega,
+      estado: Estado.PENDIENTE
+    };
+
+    console.log('NUEVA TAREA:', nuevaTarea);
+
+    this.proyecto.tareas = [
+      ...this.proyecto.tareas,
+      nuevaTarea
+    ];
+
+    const pr: ProyectoDTO = {
+      id: this.proyecto.id,
+      nombre: this.proyecto.nombre,
+      descripcion: this.proyecto.descripcion,
+      tareas: this.proyecto.tareas,
+      usuarios: this.proyecto.usuarios
+    };
+
+    console.log('PROYECTO A ENVIAR:', pr);
+
+    this.proyectoService.actualizarProyecto(this.proyecto.id, pr).subscribe({
+      next: (respuesta) => {
+        console.log('PROYECTO ACTUALIZADO:', respuesta);
+
+        this.proyecto.tareas = respuesta.tareas;
+
+        this.cerrarModalTarea();
+
+        this.cdr.detectChanges();
+      },
+
+      error: (error) => {
+        console.error('ERROR AL ACTUALIZAR PROYECTO:', error);
+        console.error('DETALLE:', error.error);
+
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  agregarUsuario() {
     if (!this.usuarioSeleccionado) {
       return;
     }
 
     console.log('USUARIO SELECCIONADO:', this.usuarioSeleccionado);
 
+    this.proyecto.usuarios = [...this.proyecto.usuarios, this.usuarioSeleccionado];
+
     this.cerrarModalIntegrante();
 
+    const pr: ProyectoDTO = {
+      id: this.proyecto.id,
+      nombre: this.proyecto.nombre,
+      descripcion: this.proyecto.descripcion,
+      tareas: this.proyecto.tareas,
+      usuarios: this.proyecto.usuarios
+    };
+
+    this.proyectoService.actualizarProyecto(this.proyecto.id, pr).subscribe({
+      next: (respuesta) => {
+        console.log('PROYECTO ACTUALIZADO:', respuesta);
+        this.proyecto.usuarios = respuesta.usuarios;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('ERROR AL ACTUALIZAR PROYECTO:', error);
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   cambiarTab(tab: string) {
@@ -132,6 +210,5 @@ export class Detalle implements OnInit {
   cerrarModalIntegrante() {
     this.mostrarModalIntegrante = false;
     this.buscarUsuario = '';
-    this.usuarioSeleccionado = null;
   }
 }

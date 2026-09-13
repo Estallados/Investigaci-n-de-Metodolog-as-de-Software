@@ -177,6 +177,9 @@ public class ProyectoService implements CRUDOperation<ProyectoDTO> {
             Proyecto proyecto =
                     proyectoOpt.get();
 
+            /*
+             * Actualizar nombre
+             */
             if (newData.getNombre() != null
                     && !newData.getNombre().trim().isEmpty()) {
 
@@ -184,6 +187,9 @@ public class ProyectoService implements CRUDOperation<ProyectoDTO> {
                         newData.getNombre());
             }
 
+            /*
+             * Actualizar descripción
+             */
             if (newData.getDescripcion() != null
                     && !newData.getDescripcion().trim().isEmpty()) {
 
@@ -202,16 +208,61 @@ public class ProyectoService implements CRUDOperation<ProyectoDTO> {
                 for (TareaDTO tareaDTO :
                         newData.getTareas()) {
 
+                    /*
+                     * TAREA EXISTENTE
+                     */
                     if (tareaDTO.getId() != null) {
 
                         Optional<Tarea> tarea =
                                 tareaRepo.findById(
                                         tareaDTO.getId());
 
-                        tarea.ifPresent(tareas::add);
+                        if (tarea.isPresent()) {
+
+                            tareas.add(
+                                    tarea.get());
+                        }
+
+                        /*
+                         * TAREA NUEVA
+                         */
+                    } else {
+
+                        Tarea nuevaTarea =
+                                new Tarea();
+
+                        nuevaTarea.setNombre(
+                                tareaDTO.getNombre());
+
+                        nuevaTarea.setDescripcion(
+                                tareaDTO.getDescripcion());
+
+                        nuevaTarea.setFechaInicio(
+                                tareaDTO.getFechaInicio());
+
+                        nuevaTarea.setFechaEntrega(
+                                tareaDTO.getFechaEntrega());
+
+                        nuevaTarea.setEstado(
+                                tareaDTO.getEstado());
+
+                        /*
+                         * Guardar la nueva tarea
+                         * y obtener su ID
+                         */
+                        Tarea tareaGuardada =
+                                tareaRepo.save(
+                                        nuevaTarea);
+
+                        tareas.add(
+                                tareaGuardada);
                     }
                 }
 
+                /*
+                 * Asignar todas las tareas
+                 * al proyecto
+                 */
                 proyecto.setTareas(tareas);
             }
 
@@ -232,13 +283,20 @@ public class ProyectoService implements CRUDOperation<ProyectoDTO> {
                                 usuarioRepo.findById(
                                         usuarioDTO.getId());
 
-                        usuario.ifPresent(usuarios::add);
+                        if (usuario.isPresent()) {
+
+                            usuarios.add(
+                                    usuario.get());
+                        }
                     }
                 }
 
                 proyecto.setUsuarios(usuarios);
             }
 
+            /*
+             * Guardar proyecto
+             */
             proyectoRepo.save(proyecto);
 
             return 0;
@@ -246,6 +304,7 @@ public class ProyectoService implements CRUDOperation<ProyectoDTO> {
         } catch (Exception e) {
 
             e.printStackTrace();
+
             return 2;
         }
     }

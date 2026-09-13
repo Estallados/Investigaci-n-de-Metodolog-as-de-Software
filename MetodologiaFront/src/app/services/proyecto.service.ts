@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ProyectoDTO } from '../model/Proyecto.dto';
 
@@ -15,29 +15,24 @@ export class ProyectoService {
   constructor(private http: HttpClient) {}
 
   listarProyectos(): Observable<ProyectoDTO[]> {
-    return this.http.get<any[]>(
+    return this.http.get<ProyectoDTO[]>(
       `${this.apiUrl}/ListarProyectos`
-    ).pipe(
-      map(proyectos =>
-        proyectos.map(proyecto => new ProyectoDTO(proyecto))
-      )
     );
   }
 
   obtenerProyecto(id: number): Observable<ProyectoDTO> {
-    return this.http.get<any>(
+    return this.http.get<ProyectoDTO>(
       `${this.apiUrl}/obtener/${id}`
-    ).pipe(
-      map(proyecto => new ProyectoDTO(proyecto))
     );
   }
 
-  crearProyecto(proyecto: any): Observable<ProyectoDTO> {
-    return this.http.post<any>(
+  crearProyecto(proyecto: ProyectoDTO): Observable<string> {
+    return this.http.post(
       `${this.apiUrl}/crear`,
-      proyecto
-    ).pipe(
-      map(respuesta => new ProyectoDTO(respuesta))
+      proyecto,
+      {
+        responseType: 'text'
+      }
     );
   }
 
@@ -45,7 +40,6 @@ export class ProyectoService {
     id: number,
     proyecto: ProyectoDTO
   ): Observable<ProyectoDTO> {
-
     return this.http.put<ProyectoDTO>(
       `${this.apiUrl}/actualizar/${id}`,
       proyecto
