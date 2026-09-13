@@ -1,1 +1,111 @@
-<p>perfil works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Profile Card</title>
+
+
+</head>
+
+
+<header class="lg:px-16 px-4 bg-black flex flex-wrap items-center py-4 shadow-md">
+  <div class="flex-1 flex justify-between items-center">
+    <a href="#" class="text-xl">Company</a>
+  </div>
+
+  <label for="menu-toggle" class="pointer-cursor md:hidden block">
+    <svg class="fill-current text-gray-900"
+         xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+      <title>menu</title>
+      <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+    </svg>
+  </label>
+  <input class="hidden" type="checkbox" id="menu-toggle" />
+
+  <div class="hidden md:flex md:items-center md:w-auto w-full" id="menu">
+    <nav>
+      <ul class="md:flex items-center justify-between text-base text-white pt-4 md:pt-0">
+        <li><a class="md:p-4 py-3 px-0 block" href="#">AboutUs</a></li>
+        <li><a class="md:p-4 py-3 px-0 block" href="#">Treatments</a></li>
+        <li><a class="md:p-4 py-3 px-0 block" href="#">Blog</a></li>
+        <li><a class="md:p-4 py-3 px-0 block md:mb-0 mb-2" href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+
+
+
+
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen p-4 transition-colors duration-200">
+
+
+
+
+
+<div class="max-w-2xl mx-auto">
+
+
+
+
+
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-200">
+    <div class="relative h-48">
+      <img src="https://img.magnific.com/vector-gratis/foto-cuenta-perfil-hombre_24908-81754.jpg?semt=ais_hybrid&w=740&q=80" alt="Cover" class="w-full h-full object-cover">
+      <div class="absolute -bottom-12 left-6">
+        <img src="https://img.magnific.com/fotos-premium/icono-cuenta-perfil-usuario-png-azul-fondo-transparente_53876-959603.jpg?semt=ais_hybrid&w=740&q=80" alt="Profile" class="w-24 h-24 rounded-xl object-cover border-4 border-white dark:border-gray-800 shadow-lg">
+      </div>
+    </div>
+
+    <div class="pt-16 px-6 pb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Abhiraj K</h1>
+          <p class="text-cyan-500 dark:text-cyan-700">Node.js Developer & Frontend Expert</p>
+        </div>
+        <a
+          href="https://abhirajk.vercel.app/"
+          target="_blank"
+          class="inline-flex items-center px-4 py-2 bg-cyan-500 hover:bg-cyan-500 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+        >
+          View Portfolio
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+        </a>
+      </div>
+
+      <p class="mt-6 text-gray-600 dark:text-gray-300">
+        Hi, I'm a passionate developer with expertise in Node.js, React, and Tailwind CSS. I love building efficient and scalable web applications.
+      </p>
+
+      <div class="mt-6">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Skills</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-purple-100 dark:bg-cyan-700 text-cyan-500 dark:text-purple-300 rounded-lg text-sm font-medium">Node.js</span>
+          <span class="px-3 py-1 bg-purple-100 dark:bg-cyan-700 text-cyan-500 dark:text-purple-300 rounded-lg text-sm font-medium">React</span>
+          <span class="px-3 py-1 bg-purple-100 dark:bg-cyan-700 text-cyan-500 dark:text-purple-300 rounded-lg text-sm font-medium">Tailwind CSS</span>
+          <span class="px-3 py-1 bg-purple-100 dark:bg-cyan-700 text-cyan-500 dark:text-purple-300 rounded-lg text-sm font-medium">MySQL</span>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Contact</h2>
+        <a
+          href="mailto:abhirajk@example.com"
+          class="inline-flex items-center text-cyan-500 dark:text-cyan-700 hover:underline"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          abhirajk@example.com
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
