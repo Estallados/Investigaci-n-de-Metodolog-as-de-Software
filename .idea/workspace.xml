@@ -40,57 +40,57 @@
       <entry key="MS500" value="1.0" />
       <entry key="S2" value="1.0" />
       <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0000000000754024" />
-      <entry key="S30" value="1.000422469693641" />
-      <entry key="S60" value="1.020579280778085" />
-      <entry key="M2" value="1.1492607691546004" />
-      <entry key="M5" value="1.807221491999953" />
-      <entry key="M10" value="3.912473738261506" />
-      <entry key="M15" value="6.288475463690133" />
-      <entry key="M30" value="11.413042511899143" />
-      <entry key="H1" value="16.01400102897056" />
-      <entry key="H2" value="19.139452420781108" />
-      <entry key="H4" value="20.967311366849195" />
-      <entry key="D1" value="22.64599778052965" />
-      <entry key="W1" value="22.94904174679381" />
+      <entry key="S10" value="1.0000000000000002" />
+      <entry key="S30" value="1.0000050335232191" />
+      <entry key="S60" value="1.0022435514746035" />
+      <entry key="M2" value="1.04736614270345" />
+      <entry key="M5" value="1.2952481653573826" />
+      <entry key="M10" value="1.5433674312630292" />
+      <entry key="M15" value="1.6658796397109579" />
+      <entry key="M30" value="1.816014485262127" />
+      <entry key="H1" value="1.9034142156292482" />
+      <entry key="H2" value="1.993751354755197" />
+      <entry key="H4" value="2.9931827469687065" />
+      <entry key="D1" value="16.167255947599486" />
+      <entry key="W1" value="24.259355780750607" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="1.8086751130923326E-140" />
-      <entry key="S5" value="1.2674903419150593E-56" />
-      <entry key="S10" value="1.1272609751067115E-28" />
-      <entry key="S30" value="5.643417610881431E-10" />
-      <entry key="S60" value="3.584885888203099E-5" />
-      <entry key="M2" value="0.01149052377842461" />
-      <entry key="M5" value="0.48149448967925407" />
-      <entry key="M10" value="2.0980929720789185" />
-      <entry key="M15" value="3.7107718144714936" />
-      <entry key="M30" value="6.9667212806927585" />
-      <entry key="H1" value="9.789724060387446" />
-      <entry key="H2" value="11.681395561866822" />
-      <entry key="H4" value="12.781246836118765" />
-      <entry key="D1" value="13.788040964525468" />
-      <entry key="W1" value="13.969495847124529" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="9.505744455E-315" />
+      <entry key="M2" value="1.3261759843539603E-157" />
+      <entry key="M5" value="2.700892428743496E-63" />
+      <entry key="M10" value="9.158075239960736E-32" />
+      <entry key="M15" value="3.7938233068735856E-21" />
+      <entry key="M30" value="2.1079948090806957E-10" />
+      <entry key="H1" value="5.6101630126895524E-5" />
+      <entry key="H2" value="0.029728500552253442" />
+      <entry key="H4" value="0.6884195525747698" />
+      <entry key="D1" value="9.468974533761884" />
+      <entry key="W1" value="14.844724906520751" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8010698775896221" />
-      <entry key="MS500" value="0.9566081580918743" />
-      <entry key="S2" value="0.9889709163809315" />
-      <entry key="S5" value="0.9955736831881946" />
-      <entry key="S10" value="0.997784387199098" />
-      <entry key="S30" value="0.9996830253981073" />
-      <entry key="S60" value="1.020233791367074" />
-      <entry key="M2" value="1.1601470570973251" />
-      <entry key="M5" value="2.2827447867246384" />
-      <entry key="M10" value="5.997985692720141" />
-      <entry key="M15" value="9.984581371180498" />
-      <entry key="M30" value="18.366193531941448" />
-      <entry key="H1" value="25.794271319899266" />
-      <entry key="H2" value="30.815233322938333" />
-      <entry key="H4" value="33.74549372734219" />
-      <entry key="D1" value="36.43348885593839" />
-      <entry key="W1" value="36.91845803169833" />
+      <entry key="MS100" value="0.5396141182522136" />
+      <entry key="MS500" value="0.8839275310636712" />
+      <entry key="S2" value="0.9696258054059442" />
+      <entry key="S5" value="0.9877377814862531" />
+      <entry key="S10" value="0.9938499793662289" />
+      <entry key="S30" value="0.9979507918210393" />
+      <entry key="S60" value="1.0012119236366213" />
+      <entry key="M2" value="1.0468100753719147" />
+      <entry key="M5" value="1.2949375176335198" />
+      <entry key="M10" value="1.5431679590238814" />
+      <entry key="M15" value="1.6657321254115605" />
+      <entry key="M30" value="1.815931823443249" />
+      <entry key="H1" value="1.9034263439869712" />
+      <entry key="H2" value="2.0234432232198216" />
+      <entry key="H4" value="3.6814289063979384" />
+      <entry key="D1" value="25.635857352639533" />
+      <entry key="W1" value="39.10399727722351" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -117,31 +117,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.MetodologiaEspiralApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jeiss/proyectosGit/Investigaci-n-de-Metodolog-as-de-Software",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.MetodologiaEspiralApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeiss/proyectosGit/Investigaci-n-de-Metodolog-as-de-Software&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
