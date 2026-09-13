@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   imports: [],
   selector: 'app-metodologias',
-  styles: ``,
+  styleUrl: './metodologias.css',
   templateUrl: './metodologias.html',
 })
 export class Metodologias {}
