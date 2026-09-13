@@ -1,10 +1,10 @@
-import { TareaDto } from './Tarea.dto';
-import { UsuarioDto } from './Usuario.dto';
+import { TareaDTO } from './Tarea.dto';
+import { UsuarioDTO } from './Usuario.dto';
 
-export interface ProyectoDto {
+export interface ProyectoDTO {
   id: number;
   nombre: string;
   descripcion: string;
-  tareas: TareaDto[];
-  usuarios: UsuarioDto[];
+  tareas: TareaDTO[];
+  usuarios: UsuarioDTO[];
 }

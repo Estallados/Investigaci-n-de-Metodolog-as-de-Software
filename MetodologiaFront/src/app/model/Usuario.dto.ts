@@ -1,6 +1,6 @@
 import { Role } from './Role';
 
-export interface UsuarioDto {
+export interface UsuarioDTO {
   id: number;
   nombre: string;
   correo: string;

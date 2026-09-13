@@ -1,6 +1,6 @@
 import { Estado } from './Estado';
 
-export interface TareaDto {
+export interface TareaDTO {
   id: number;
   nombre: string;
   descripcion: string;
