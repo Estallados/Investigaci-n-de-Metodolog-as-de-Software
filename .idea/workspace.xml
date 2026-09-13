@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b9055aad-5979-46d0-aa1a-3964b6c97d8d" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/jeiss/proyectosGit/Investigaci-n-de-Metodolog-as-de-Software" value="3JFeXcenetqssD2n0R5Qn5HOrE9" />
+    </persistenceIdMap>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0000000000754024" />
+      <entry key="S30" value="1.000422469693641" />
+      <entry key="S60" value="1.020579280778085" />
+      <entry key="M2" value="1.1492607691546004" />
+      <entry key="M5" value="1.807221491999953" />
+      <entry key="M10" value="3.912473738261506" />
+      <entry key="M15" value="6.288475463690133" />
+      <entry key="M30" value="11.413042511899143" />
+      <entry key="H1" value="16.01400102897056" />
+      <entry key="H2" value="19.139452420781108" />
+      <entry key="H4" value="20.967311366849195" />
+      <entry key="D1" value="22.64599778052965" />
+      <entry key="W1" value="22.94904174679381" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="1.8086751130923326E-140" />
+      <entry key="S5" value="1.2674903419150593E-56" />
+      <entry key="S10" value="1.1272609751067115E-28" />
+      <entry key="S30" value="5.643417610881431E-10" />
+      <entry key="S60" value="3.584885888203099E-5" />
+      <entry key="M2" value="0.01149052377842461" />
+      <entry key="M5" value="0.48149448967925407" />
+      <entry key="M10" value="2.0980929720789185" />
+      <entry key="M15" value="3.7107718144714936" />
+      <entry key="M30" value="6.9667212806927585" />
+      <entry key="H1" value="9.789724060387446" />
+      <entry key="H2" value="11.681395561866822" />
+      <entry key="H4" value="12.781246836118765" />
+      <entry key="D1" value="13.788040964525468" />
+      <entry key="W1" value="13.969495847124529" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.8010698775896221" />
+      <entry key="MS500" value="0.9566081580918743" />
+      <entry key="S2" value="0.9889709163809315" />
+      <entry key="S5" value="0.9955736831881946" />
+      <entry key="S10" value="0.997784387199098" />
+      <entry key="S30" value="0.9996830253981073" />
+      <entry key="S60" value="1.020233791367074" />
+      <entry key="M2" value="1.1601470570973251" />
+      <entry key="M5" value="2.2827447867246384" />
+      <entry key="M10" value="5.997985692720141" />
+      <entry key="M15" value="9.984581371180498" />
+      <entry key="M30" value="18.366193531941448" />
+      <entry key="H1" value="25.794271319899266" />
+      <entry key="H2" value="30.815233322938333" />
+      <entry key="H4" value="33.74549372734219" />
+      <entry key="D1" value="36.43348885593839" />
+      <entry key="W1" value="36.91845803169833" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3JFeXcenetqssD2n0R5Qn5HOrE9" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.MetodologiaEspiralApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jeiss/proyectosGit/Investigaci-n-de-Metodolog-as-de-Software",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.27258.48" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.27258.48" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9055aad-5979-46d0-aa1a-3964b6c97d8d" name="Changes" comment="" />
+      <created>1789261284328</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1789261284328</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

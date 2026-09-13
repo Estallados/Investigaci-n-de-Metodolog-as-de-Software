@@ -208,7 +208,6 @@ public class UsuarioService implements CRUDOperation<UsuarioDTO> {
 		}
 	}
 
-	@Override
 	public boolean findUsernameAlreadyTaken(Usuario newUser) {
 
 		try {
@@ -223,7 +222,6 @@ public class UsuarioService implements CRUDOperation<UsuarioDTO> {
 		}
 	}
 
-	@Override
 	public boolean encontrarCorreoExitente(String username) {
 
 		Optional<Usuario> found =

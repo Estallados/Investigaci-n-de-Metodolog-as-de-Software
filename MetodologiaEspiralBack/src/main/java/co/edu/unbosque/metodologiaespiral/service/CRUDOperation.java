@@ -20,7 +20,5 @@ public interface CRUDOperation<D> {
 
 	public D getById(Long id);
 
-	public boolean findUsernameAlreadyTaken(Usuario newUser);
 
-	boolean encontrarCorreoExitente(String username);
 }
