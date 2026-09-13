@@ -271,6 +271,53 @@ export class Detalle implements OnInit {
     });
   }
 
+  actualizarTarea(tarea: TareaDTO) {
+
+    if (tarea.id == null) {
+      console.error(
+        'No se puede actualizar una tarea sin ID'
+      );
+
+      return;
+    }
+
+    console.log(
+      'ACTUALIZANDO TAREA:',
+      tarea
+    );
+
+    this.tareaService
+      .actualizarTarea(tarea.id, tarea)
+      .subscribe({
+
+        next: (respuesta) => {
+
+          console.log(
+            'TAREA ACTUALIZADA:',
+            respuesta
+          );
+
+          this.cdr.detectChanges();
+        },
+
+        error: (error) => {
+
+          console.error(
+            'ERROR ACTUALIZANDO TAREA:',
+            error
+          );
+
+          console.error(
+            'DETALLE:',
+            error.error
+          );
+
+          this.cdr.detectChanges();
+        }
+
+      });
+  }
+
   cambiarTab(tab: string) {
     this.tab = tab;
   }
@@ -298,4 +345,6 @@ export class Detalle implements OnInit {
     this.mostrarModalIntegrante = false;
     this.buscarUsuario = '';
   }
+
+  protected readonly Estado = Estado;
 }
