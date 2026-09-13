@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tareas")
 public class Tarea {
@@ -20,9 +22,9 @@ public class Tarea {
 
     private String descripcion;
 
-    private String fechaEntrega;
+    private LocalDate fechaEntrega;
 
-    private String fechaInicio;
+    private LocalDate fechaInicio;
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
@@ -31,7 +33,7 @@ public class Tarea {
     }
 
     public Tarea(Long id, String nombre, String descripcion,
-                 String fechaEntrega, String fechaInicio,
+                 LocalDate fechaEntrega, LocalDate fechaInicio,
                  Estado estado) {
 
         this.id = id;
@@ -66,19 +68,19 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public String getFechaEntrega() {
+    public LocalDate getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(String fechaEntrega) {
+    public void setFechaEntrega(LocalDate fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public String getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 

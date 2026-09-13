@@ -2,20 +2,22 @@ package co.edu.unbosque.metodologiaespiral.dto;
 
 import co.edu.unbosque.metodologiaespiral.entity.Estado;
 
+import java.time.LocalDate;
+
 public class TareaDTO {
 
     private Long id;
     private String nombre;
     private String descripcion;
-    private String fechaEntrega;
-    private String fechaInicio;
+    private LocalDate fechaEntrega;
+    private LocalDate fechaInicio;
     private Estado estado;
 
     public TareaDTO() {
     }
 
     public TareaDTO(Long id, String nombre, String descripcion,
-                    String fechaEntrega, String fechaInicio,
+                    LocalDate fechaEntrega, LocalDate fechaInicio,
                     Estado estado) {
 
         this.id = id;
@@ -50,19 +52,19 @@ public class TareaDTO {
         this.descripcion = descripcion;
     }
 
-    public String getFechaEntrega() {
+    public LocalDate getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(String fechaEntrega) {
+    public void setFechaEntrega(LocalDate fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public String getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 

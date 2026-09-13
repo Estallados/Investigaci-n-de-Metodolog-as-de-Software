@@ -2,6 +2,7 @@ package co.edu.unbosque.metodologiaespiral.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -38,7 +39,7 @@ public class PDFUtil {
 
             float y = 780;
 
-            // TITULO
+
             contenido.beginText();
             contenido.setFont(negrita, 20);
             contenido.newLineAtOffset(50, y);
@@ -47,7 +48,8 @@ public class PDFUtil {
 
             y -= 40;
 
-            // NOMBRE
+
+
             contenido.beginText();
             contenido.setFont(negrita, 14);
             contenido.newLineAtOffset(50, y);
@@ -63,7 +65,7 @@ public class PDFUtil {
 
             y -= 30;
 
-            // DESCRIPCION
+
             contenido.beginText();
             contenido.setFont(negrita, 14);
             contenido.newLineAtOffset(50, y);
@@ -81,7 +83,7 @@ public class PDFUtil {
 
             y -= 40;
 
-            // TAREAS
+
             contenido.beginText();
             contenido.setFont(negrita, 16);
             contenido.newLineAtOffset(50, y);
@@ -106,11 +108,8 @@ public class PDFUtil {
 
                 for (Tarea tarea : proyecto.getTareas()) {
 
-                    /*
-                     * Si ya no cabe contenido en la pagina,
-                     * creamos una nueva.
-                     */
-                    if (y < 120) {
+
+                    if (y < 140) {
 
                         contenido.close();
 
@@ -125,6 +124,8 @@ public class PDFUtil {
                         y = 780;
                     }
 
+
+
                     contenido.beginText();
                     contenido.setFont(negrita, 12);
                     contenido.newLineAtOffset(60, y);
@@ -134,6 +135,7 @@ public class PDFUtil {
                     contenido.endText();
 
                     y -= 18;
+
 
                     contenido.beginText();
                     contenido.setFont(normal, 10);
@@ -146,49 +148,63 @@ public class PDFUtil {
 
                     y -= 16;
 
+
                     contenido.beginText();
                     contenido.setFont(normal, 10);
                     contenido.newLineAtOffset(80, y);
 
-                    String estado =
-                            tarea.getEstado() == null
-                                    ? "Sin estado"
-                                    : tarea.getEstado().toString();
+                    String estado;
+
+                    if (tarea.getEstado() == null) {
+
+                        estado = "Sin estado";
+
+                    } else {
+
+                        estado =
+                                tarea.getEstado().toString();
+                    }
 
                     contenido.showText(
                             "Estado: " + estado);
+
                     contenido.endText();
 
                     y -= 16;
 
+
                     contenido.beginText();
                     contenido.setFont(normal, 10);
                     contenido.newLineAtOffset(80, y);
+
                     contenido.showText(
                             "Fecha inicio: "
-                                    + textoSeguro(
+                                    + fechaSegura(
                                     tarea.getFechaInicio()));
+
                     contenido.endText();
 
                     y -= 16;
 
+                    // Fecha entrega
+
                     contenido.beginText();
                     contenido.setFont(normal, 10);
                     contenido.newLineAtOffset(80, y);
+
                     contenido.showText(
                             "Fecha entrega: "
-                                    + textoSeguro(
+                                    + fechaSegura(
                                     tarea.getFechaEntrega()));
+
                     contenido.endText();
 
                     y -= 30;
                 }
             }
 
-            /*
-             * Comprobamos nuevamente espacio
-             * antes de imprimir usuarios.
-             */
+
+
             if (y < 150) {
 
                 contenido.close();
@@ -204,7 +220,8 @@ public class PDFUtil {
                 y = 780;
             }
 
-            // USUARIOS
+
+
             contenido.beginText();
             contenido.setFont(negrita, 16);
             contenido.newLineAtOffset(50, y);
@@ -228,6 +245,7 @@ public class PDFUtil {
                 for (Usuario usuario :
                         proyecto.getUsuarios()) {
 
+
                     if (y < 100) {
 
                         contenido.close();
@@ -245,23 +263,29 @@ public class PDFUtil {
                         y = 780;
                     }
 
+
                     contenido.beginText();
                     contenido.setFont(negrita, 12);
                     contenido.newLineAtOffset(60, y);
+
                     contenido.showText(
                             "- " + textoSeguro(
                                     usuario.getNombre()));
+
                     contenido.endText();
 
                     y -= 17;
 
+
                     contenido.beginText();
                     contenido.setFont(normal, 10);
                     contenido.newLineAtOffset(80, y);
+
                     contenido.showText(
                             "Correo: "
                                     + textoSeguro(
                                     usuario.getCorreo()));
+
                     contenido.endText();
 
                     y -= 25;
@@ -276,12 +300,31 @@ public class PDFUtil {
         return salida.toByteArray();
     }
 
+    /*
+     * Metodo para evitar errores si un String
+     * viene null.
+     */
     private String textoSeguro(String texto) {
 
-        if (texto == null) {
+        if (texto == null
+                || texto.trim().isEmpty()) {
+
             return "No disponible";
         }
 
         return texto;
+    }
+
+    /*
+     * Metodo especial para LocalDate.
+     */
+    private String fechaSegura(LocalDate fecha) {
+
+        if (fecha == null) {
+
+            return "No disponible";
+        }
+
+        return fecha.toString();
     }
 }
