@@ -76,44 +76,43 @@ public class UsuarioService implements CRUDOperation<UsuarioDTO> {
 
 	@Override
 	public List<UsuarioDTO> getAll() {
+	    List<Usuario> entityList = usuarioRepo.findAll();
+	    List<UsuarioDTO> dtoList = new ArrayList<>();
 
-		List<Usuario> entityList = usuarioRepo.findAll();
-		List<UsuarioDTO> dtoList = new ArrayList<>();
+	    for (Usuario entity : entityList) {
+	        UsuarioDTO dto = new UsuarioDTO();
 
-		for (Usuario entity : entityList) {
+	        dto.setId(entity.getId());
+	        dto.setNombre(entity.getNombre());
+	        dto.setCorreo(entity.getCorreo());
+	        dto.setContrasenia(entity.getContrasenia());
+	        dto.setRole(entity.getRole());
 
-			UsuarioDTO dto = new UsuarioDTO();
+	        dtoList.add(dto);
+	    }
 
-			dto.setId(entity.getId());
-			dto.setNombre((entity.getNombre()));
-			dto.setCorreo((entity.getCorreo()));
-			dto.setRole(entity.getRole());
-
-			dtoList.add(dto);
-		}
-
-		return dtoList;
+	    return dtoList;
 	}
 
 	@Override
 	public UsuarioDTO getById(Long id) {
+	    Optional<Usuario> optionalUsuario = usuarioRepo.findById(id);
 
-		Optional<Usuario> optionalUsuario = usuarioRepo.findById(id);
+	    if (optionalUsuario.isEmpty()) {
+	        return null;
+	    }
 
-		if (optionalUsuario.isEmpty()) {
-			return null;
-		}
+	    Usuario entity = optionalUsuario.get();
 
-		Usuario entity = optionalUsuario.get();
+	    UsuarioDTO dto = new UsuarioDTO();
 
-		UsuarioDTO dto = new UsuarioDTO();
+	    dto.setId(entity.getId());
+	    dto.setNombre(entity.getNombre());
+	    dto.setCorreo(entity.getCorreo());
+	    dto.setContrasenia(entity.getContrasenia());
+	    dto.setRole(entity.getRole());
 
-		dto.setId(entity.getId());
-		dto.setNombre((entity.getNombre()));
-		dto.setCorreo((entity.getCorreo()));
-		dto.setRole(entity.getRole());
-
-		return dto;
+	    return dto;
 	}
 
 	@Override
