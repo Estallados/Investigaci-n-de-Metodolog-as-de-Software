@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 
 import { ProyectoDTO } from '../model/Proyecto.dto';
 
@@ -15,32 +15,29 @@ export class ProyectoService {
   constructor(private http: HttpClient) {}
 
   listarProyectos(): Observable<ProyectoDTO[]> {
-    return this.http.get<ProyectoDTO[]>(
+    return this.http.get<any[]>(
       `${this.apiUrl}/ListarProyectos`
+    ).pipe(
+      map(proyectos =>
+        proyectos.map(proyecto => new ProyectoDTO(proyecto))
+      )
     );
   }
 
   obtenerProyecto(id: number): Observable<ProyectoDTO> {
-    return this.http.get<ProyectoDTO>(
+    return this.http.get<any>(
       `${this.apiUrl}/obtener/${id}`
-    );
-  }
-
-  obtenerProyectoPorNombre(nombre: string): Observable<ProyectoDTO> {
-    return this.http.get<ProyectoDTO>(
-      `${this.apiUrl}/obtenernombre`,
-      {
-        params: {
-          nombre: nombre
-        }
-      }
+    ).pipe(
+      map(proyecto => new ProyectoDTO(proyecto))
     );
   }
 
   crearProyecto(proyecto: any): Observable<ProyectoDTO> {
-    return this.http.post<ProyectoDTO>(
+    return this.http.post<any>(
       `${this.apiUrl}/crear`,
       proyecto
+    ).pipe(
+      map(respuesta => new ProyectoDTO(respuesta))
     );
   }
 
