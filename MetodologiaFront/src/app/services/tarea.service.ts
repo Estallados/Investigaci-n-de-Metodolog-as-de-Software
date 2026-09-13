@@ -37,12 +37,17 @@ export class TareaService {
     );
   }
 
-  crearTarea(tarea: TareaDTO): Observable<TareaDTO> {
-    return this.http.post<TareaDTO>(
+  crearTarea(tarea: TareaDTO): Observable<string> {
+    return this.http.post(
       `${this.apiUrl}/crear`,
-      tarea
+      tarea,
+      {
+        responseType: 'text'
+      }
     );
   }
+
+
 
   actualizarTarea(
     id: number,

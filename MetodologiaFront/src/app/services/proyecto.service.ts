@@ -39,10 +39,14 @@ export class ProyectoService {
   actualizarProyecto(
     id: number,
     proyecto: ProyectoDTO
-  ): Observable<ProyectoDTO> {
-    return this.http.put<ProyectoDTO>(
+  ): Observable<string> {
+
+    return this.http.put(
       `${this.apiUrl}/actualizar/${id}`,
-      proyecto
+      proyecto,
+      {
+        responseType: 'text'
+      }
     );
   }
 

@@ -178,11 +178,25 @@
 
                   <td class="px-5 py-4">
 
-                    <span
-                      class="rounded-md border border-slate-600 bg-slate-800 px-3 py-1 text-xs font-bold text-cyan-400"
+                    <select
+                      [(ngModel)]="tarea.estado"
+                      (ngModelChange)="actualizarTarea(tarea)"
+                      class="rounded-md border border-slate-600 bg-slate-800 px-3 py-1 text-xs font-bold text-cyan-400 outline-none transition hover:border-cyan-500 focus:border-cyan-500"
                     >
-                      {{ tarea.estado }}
-                    </span>
+
+                      <option [ngValue]="Estado.PENDIENTE">
+                        PENDIENTE
+                      </option>
+
+                      <option [ngValue]="Estado.EN_CURSO">
+                        EN CURSO
+                      </option>
+
+                      <option [ngValue]="Estado.COMPLETADO">
+                        COMPLETADO
+                      </option>
+
+                    </select>
 
                   </td>
 

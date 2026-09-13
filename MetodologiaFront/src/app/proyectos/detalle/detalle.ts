@@ -8,6 +8,7 @@ import {UsuarioDTO} from '../../model/Usuario.dto';
 import {UsuarioService} from '../../services/usuario.service';
 import {TareaDTO} from '../../model/Tarea.dto';
 import {Estado} from '../../model/Estado';
+import {TareaService} from '../../services/tarea.service';
 
 @Component({
   selector: 'app-detalle',
@@ -35,6 +36,7 @@ export class Detalle implements OnInit {
     private router: Router,
     private proyectoService: ProyectoService,
     private usuarioService: UsuarioService,
+    private tareaService: TareaService,
     private cdr: ChangeDetectorRef
   ) {
   }
@@ -97,11 +99,15 @@ export class Detalle implements OnInit {
   }
 
   agregarTarea() {
-    const nombre = (document.getElementById('nombreTarea') as HTMLInputElement).value;
-    const descripcion = (document.getElementById('descripcionTarea') as HTMLTextAreaElement).value;
-    const fechaInicio = (document.getElementById('fechaInicio') as HTMLInputElement).value;
-    const fechaEntrega = (document.getElementById('fechaEntrega') as HTMLInputElement).value;
 
+    const nombre =
+      (document.getElementById('nombreTarea') as HTMLInputElement).value;
+    const descripcion =
+      (document.getElementById('descripcionTarea') as HTMLTextAreaElement).value;
+    const fechaInicio =
+      (document.getElementById('fechaInicio') as HTMLInputElement).value;
+    const fechaEntrega =
+      (document.getElementById('fechaEntrega') as HTMLInputElement).value;
     if (!nombre.trim()) {
       return;
     }
@@ -115,41 +121,121 @@ export class Detalle implements OnInit {
       estado: Estado.PENDIENTE
     };
 
-    console.log('NUEVA TAREA:', nuevaTarea);
-
-    this.proyecto.tareas = [
-      ...this.proyecto.tareas,
+    console.log(
+      '1. CREANDO TAREA:',
       nuevaTarea
-    ];
+    );
 
-    const pr: ProyectoDTO = {
-      id: this.proyecto.id,
-      nombre: this.proyecto.nombre,
-      descripcion: this.proyecto.descripcion,
-      tareas: this.proyecto.tareas,
-      usuarios: this.proyecto.usuarios
-    };
+    this.tareaService
+      .crearTarea(nuevaTarea)
+      .subscribe({
 
-    console.log('PROYECTO A ENVIAR:', pr);
+        next: (respuesta) => {
 
-    this.proyectoService.actualizarProyecto(this.proyecto.id, pr).subscribe({
-      next: (respuesta) => {
-        console.log('PROYECTO ACTUALIZADO:', respuesta);
+          console.log(
+            '2. TAREA CREADA:',
+            respuesta
+          );
 
-        this.proyecto.tareas = respuesta.tareas;
+          this.tareaService
+            .obtenerTareaPorNombre(nombre)
+            .subscribe({
 
-        this.cerrarModalTarea();
+              next: (tareaCreada) => {
 
-        this.cdr.detectChanges();
-      },
+                console.log(
+                  '3. TAREA OBTENIDA:',
+                  tareaCreada
+                );
 
-      error: (error) => {
-        console.error('ERROR AL ACTUALIZAR PROYECTO:', error);
-        console.error('DETALLE:', error.error);
+                if (tareaCreada.id == null) {
+                  console.error(
+                    'La tarea fue creada pero no se obtuvo su ID'
+                  );
+                  return;
+                }
 
-        this.cdr.detectChanges();
-      }
-    });
+                this.proyecto.tareas = [
+                  ...this.proyecto.tareas,
+                  tareaCreada
+                ];
+
+                const pr: ProyectoDTO = {
+                  id: this.proyecto.id,
+                  nombre: this.proyecto.nombre,
+                  descripcion: this.proyecto.descripcion,
+                  tareas: this.proyecto.tareas,
+                  usuarios: this.proyecto.usuarios
+                };
+                console.log(
+                  '4. PROYECTO A ACTUALIZAR:',
+                  pr
+                );
+
+                this.proyectoService
+                  .actualizarProyecto(
+                    this.proyecto.id,
+                    pr
+                  )
+                  .subscribe({
+
+                    next: (respuesta) => {
+
+                      console.log(
+                        '5. PROYECTO ACTUALIZADO:',
+                        respuesta
+                      );
+
+                      this.cerrarModalTarea();
+
+                      this.cdr.detectChanges();
+                    },
+
+                    error: (error) => {
+                      console.error(
+                        'ERROR ACTUALIZANDO PROYECTO:',
+                        error
+                      );
+
+                      console.error(
+                        'DETALLE:',
+                        error.error
+                      );
+
+                      this.cdr.detectChanges();
+                    }
+                  });
+              },
+
+              error: (error) => {
+                console.error(
+                  'ERROR OBTENIENDO TAREA CREADA:',
+                  error
+                );
+                console.error(
+                  'DETALLE:',
+                  error.error
+                );
+                this.cdr.detectChanges();
+              }
+            });
+        },
+
+        error: (error) => {
+
+          console.error(
+            'ERROR CREANDO TAREA:',
+            error
+          );
+
+          console.error(
+            'DETALLE:',
+            error.error
+          );
+
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   agregarUsuario() {
@@ -174,7 +260,8 @@ export class Detalle implements OnInit {
     this.proyectoService.actualizarProyecto(this.proyecto.id, pr).subscribe({
       next: (respuesta) => {
         console.log('PROYECTO ACTUALIZADO:', respuesta);
-        this.proyecto.usuarios = respuesta.usuarios;
+        this.cerrarModalTarea();
+
         this.cdr.detectChanges();
       },
       error: (error) => {
@@ -182,6 +269,53 @@ export class Detalle implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  actualizarTarea(tarea: TareaDTO) {
+
+    if (tarea.id == null) {
+      console.error(
+        'No se puede actualizar una tarea sin ID'
+      );
+
+      return;
+    }
+
+    console.log(
+      'ACTUALIZANDO TAREA:',
+      tarea
+    );
+
+    this.tareaService
+      .actualizarTarea(tarea.id, tarea)
+      .subscribe({
+
+        next: (respuesta) => {
+
+          console.log(
+            'TAREA ACTUALIZADA:',
+            respuesta
+          );
+
+          this.cdr.detectChanges();
+        },
+
+        error: (error) => {
+
+          console.error(
+            'ERROR ACTUALIZANDO TAREA:',
+            error
+          );
+
+          console.error(
+            'DETALLE:',
+            error.error
+          );
+
+          this.cdr.detectChanges();
+        }
+
+      });
   }
 
   cambiarTab(tab: string) {
@@ -211,4 +345,6 @@ export class Detalle implements OnInit {
     this.mostrarModalIntegrante = false;
     this.buscarUsuario = '';
   }
+
+  protected readonly Estado = Estado;
 }
