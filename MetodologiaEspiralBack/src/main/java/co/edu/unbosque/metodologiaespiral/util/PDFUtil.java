@@ -61,11 +61,11 @@ public class PDFUtil {
 
             this.fuenteNormal =
                     new PDType1Font(
-                            Standard14Fonts.FontName.HELVETICA);
+                            Standard14Fonts.FontName.TIMES_ROMAN);
 
             this.fuenteNegrita =
                     new PDType1Font(
-                            Standard14Fonts.FontName.HELVETICA_BOLD);
+                            Standard14Fonts.FontName.TIMES_BOLD);
 
             nuevaPagina();
 

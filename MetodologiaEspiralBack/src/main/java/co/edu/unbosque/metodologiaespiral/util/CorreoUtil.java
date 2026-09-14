@@ -1,47 +1,34 @@
 package co.edu.unbosque.metodologiaespiral.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-/**
- * Utilidad para el envío de correos electrónicos utilizando Spring Mail.
- * Proporciona un método sencillo para enviar correos electrónicos de texto plano.
- */
+import com.resend.Resend;
+import com.resend.core.exception.ResendException;
+import com.resend.services.emails.model.CreateEmailOptions;
+
 @Service
 public class CorreoUtil {
 
-    /** Inyecta el servicio de Spring para el envío de correos electrónicos. */
-    @Autowired
-    private JavaMailSender mailSender;
+    private final Resend resend;
 
-    /**
-     * Constructor por defecto de la clase.
-     */
-    public CorreoUtil() {
-        // Constructor por defecto
+    public CorreoUtil(@Value("${RESEND_API_KEY}") String apiKey) {
+        this.resend = new Resend(apiKey);
     }
 
-    /**
-     * Envía un correo electrónico a un destinatario específico.
-     *
-     * @param to Destinatario del correo electrónico.
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @return {@code true} si el correo se envió correctamente, {@code false} si ocurrió un error durante el envío.
-     */
-    public boolean enviarCorreo(String to, String subject, String body) {
+    public void enviarCorreo(String destinatario, String asunto, String mensaje) {
+
+        CreateEmailOptions params = CreateEmailOptions.builder()
+                .from("onboarding@resend.dev")
+                .to(destinatario)
+                .subject(asunto)
+                .html(mensaje)
+                .build();
+
         try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(to);
-            message.setSubject(subject);
-            message.setText(body);
-            mailSender.send(message);
-            return true;
-        } catch (Exception e) {
-            System.err.println("Error enviando correo a " + to + ": " + e.getMessage());
-            return false;
+            resend.emails().send(params);
+        } catch (ResendException e) {
+            throw new RuntimeException("Error enviando correo: " + e.getMessage(), e);
         }
     }
 }

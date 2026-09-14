@@ -52,14 +52,17 @@ public class UsuarioService implements CRUDOperation<UsuarioDTO> {
 
 				String cuerpo = String.format(
 				        "Hola %s,\n\n"
-				                + "¡Bienvenido al contenido de la Metodología Espiral!\n\n"
+				                + "¡Bienvenido al contenido sobre Metodologías de Desarrollo de Software!\n\n"
 				                + "Tu registro se ha realizado correctamente y ya puedes acceder "
-				                + "al contenido disponible sobre la Metodología Espiral.\n\n"
-				                + "Esperamos que este material te ayude a comprender y aplicar "
-				                + "cada una de las etapas de esta metodología.\n\n"
+				                + "al contenido disponible sobre diferentes metodologías de desarrollo de software.\n\n"
+				                + "En este espacio podrás conocer metodologías como Espiral, Cascada, Scrum, "
+				                + "Kanban y otras, comprendiendo sus características, ventajas y desventajas.\n\n"
+				                + "Esperamos que este material te ayude a conocer mejor las diferentes "
+				                + "formas de organizar y desarrollar proyectos de software.\n\n"
 				                + "¡Gracias por ser parte de este proyecto!\n\n"
-				                + "Equipo de Metodología Espiral",
+				                + "Equipo de Metodologías de Software",
 				        data.getNombre());
+
 
 				correoUtil.enviarCorreo(
 				        data.getCorreo(),
