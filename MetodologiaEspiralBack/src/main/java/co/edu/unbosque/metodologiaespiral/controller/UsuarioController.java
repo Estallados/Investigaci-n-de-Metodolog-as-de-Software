@@ -28,7 +28,7 @@ import co.edu.unbosque.metodologiaespiral.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://investigacionsoftware.netlify.app")
 public class UsuarioController {
 
     @Autowired
