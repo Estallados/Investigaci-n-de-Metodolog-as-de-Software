@@ -6,6 +6,12 @@ import { Perfil } from './perfil/perfil';
 import { Detalle } from './proyectos/detalle/detalle';
 import { Panel } from './panel/panel';
 import { Metodologias } from './metodologias/metodologias';
+import {Scrum} from './metodologias/scrum/scrum';
+import {Kanban} from './metodologias/kanban/kanban';
+import {Cascada} from './metodologias/cascada/cascada';
+import {Espiral} from './metodologias/espiral/espiral';
+import {Prototipos} from './metodologias/prototipos/prototipos';
+import {Xp} from './metodologias/xp/xp';
 
 export const routes: Routes = [
   {
@@ -20,6 +26,30 @@ export const routes: Routes = [
   {
     path: 'metodologias',
     component: Metodologias,
+  },
+  {
+    path: 'metodologias/scrum',
+    component: Scrum,
+  },
+  {
+    path: 'metodologias/kanban',
+    component: Kanban,
+  },
+  {
+    path: 'metodologias/cascada',
+    component: Cascada,
+  },
+  {
+    path: 'metodologias/espiral',
+    component: Espiral,
+  },
+  {
+    path: 'metodologias/prototipos',
+    component: Prototipos,
+  },
+  {
+    path: 'metodologias/xp',
+    component: Xp,
   },
   {
     path: 'login',

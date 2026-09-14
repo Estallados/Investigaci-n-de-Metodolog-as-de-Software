@@ -48,6 +48,19 @@ export class Detalle implements OnInit {
     this.cargarUsuarios();
   }
 
+  descargarInforme() {
+
+    if (!this.proyecto || this.proyecto.id === undefined) {
+      console.error('No se puede descargar el informe: proyecto sin ID');
+      return;
+    }
+
+    const url =
+      `https://investigaci-n-de-metodolog-as-de-horr.onrender.com/proyectos/pdf/${this.proyecto.id}`;
+
+    window.open(url, '_blank');
+  }
+
   cargarProyecto(id: number) {
 
     this.proyectoService.obtenerProyecto(id).subscribe({

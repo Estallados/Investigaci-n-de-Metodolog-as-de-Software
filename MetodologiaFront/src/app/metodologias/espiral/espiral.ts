@@ -3,7 +3,8 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   imports: [RouterLink],
-  selector: 'app-cascada',
-  templateUrl: './cascada.html',
+  selector: 'app-espiral',
+  styles: ``,
+  templateUrl: './espiral.html',
 })
-export class Cascada {}
+export class Espiral {}

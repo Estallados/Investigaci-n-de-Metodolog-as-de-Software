@@ -33,6 +33,14 @@
         <!-- ESTADÍSTICAS -->
         <div class="flex gap-4">
 
+          <button
+            type="button"
+            (click)="descargarInforme()"
+            class="rounded-lg border-2 border-cyan-400 bg-cyan-400 px-5 py-4 font-bold text-slate-950 shadow-[4px_4px_0_#020617] transition hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_#020617]"
+          >
+            ↓ Descargar informe
+          </button>
+
           <div class="rounded-lg border-2 border-slate-700 bg-slate-950 px-5 py-4 text-center">
             <p class="text-2xl font-black text-cyan-400">
               {{ proyecto.tareas.length }}
