@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {ProyectoDTO} from '../model/Proyecto.dto';
 import {ProyectoService} from '../services/proyecto.service';
+import {UsuarioService} from '../services/usuario.service';
+import {Estado} from '../model/Estado';
 
 @Component({
   imports: [RouterLink, FormsModule],
@@ -15,6 +17,7 @@ export class Panel implements OnInit {
 
   constructor(
     private proyectoService: ProyectoService,
+    public usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -22,19 +25,122 @@ export class Panel implements OnInit {
     this.cargarProyectos();
   }
 
+  calcularTareasTotales(): number {
+    let total = 0;
+
+    for (const proyecto of this.proyectos) {
+      total += proyecto.tareas.length;
+    }
+
+    return total;
+  }
+  calcularTareasCompletadas(): number {
+    let completadas = 0;
+
+    for (const proyecto of this.proyectos) {
+      for (const tarea of proyecto.tareas) {
+
+        if (tarea.estado === Estado.COMPLETADO) {
+          completadas++;
+        }
+
+      }
+    }
+
+    return completadas;
+  }
+
+  calcularTareasEnCurso(): number {
+
+    let total = 0;
+
+    for (const proyecto of this.proyectos) {
+      for (const tarea of proyecto.tareas) {
+
+        if (tarea.estado === Estado.EN_CURSO) {
+          total++;
+        }
+
+      }
+    }
+
+    return total;
+  }
+  calcularTareasPendientes(): number {
+
+    let total = 0;
+
+    for (const proyecto of this.proyectos) {
+      for (const tarea of proyecto.tareas) {
+
+        if (tarea.estado === Estado.PENDIENTE) {
+          total++;
+        }
+
+      }
+    }
+
+    return total;
+  }
+
+  calcularPorcentajeTareas(): number {
+
+    const total = this.calcularTareasTotales();
+
+    if (total === 0) {
+      return 0;
+    }
+
+    const completadas =
+      this.calcularTareasCompletadas();
+
+    return Math.round(
+      (completadas / total) * 100
+    );
+  }
+
   cargarProyectos() {
     this.proyectoService.listarProyectos().subscribe({
       next: (respuesta) => {
+
         console.log('1. RESPUESTA RECIBIDA');
 
-        this.proyectos = respuesta;
+        const usuarioActual = this.usuarioService.usuarioActual;
+
+        if (!usuarioActual || usuarioActual.id === undefined) {
+          console.error('No hay usuario actual');
+          this.proyectos = [];
+          return;
+        }
+
+        this.proyectos = [];
+
+        for (const proyecto of respuesta) {
+
+          const usuarioEstaEnProyecto =
+            proyecto.usuarios.some(
+              usuario => usuario.id === usuarioActual.id
+            );
+
+          if (usuarioEstaEnProyecto) {
+            this.proyectos.push(proyecto);
+          }
+        }
+
         this.cdr.detectChanges();
 
-        console.log(this.proyectos);
-        console.log('2. CANTIDAD:', this.proyectos.length);
+        console.log('PROYECTOS DEL USUARIO:', this.proyectos);
+        console.log(
+          'CANTIDAD:',
+          this.proyectos.length
+        );
       },
+
       error: (error) => {
-        console.error('ERROR AL CARGAR PROYECTOS:', error);
+        console.error(
+          'ERROR AL CARGAR PROYECTOS:',
+          error
+        );
       }
     });
   }
