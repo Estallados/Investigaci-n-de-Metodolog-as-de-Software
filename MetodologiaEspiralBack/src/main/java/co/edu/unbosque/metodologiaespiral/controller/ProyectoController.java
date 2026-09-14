@@ -24,7 +24,7 @@ import org.springframework.http.MediaType;
 
 @RestController
 @RequestMapping("/proyectos")
-@CrossOrigin(origins = "http://investigacionsoftware.netlify.app")
+@CrossOrigin(origins = "*")
 public class ProyectoController {
 
     @Autowired

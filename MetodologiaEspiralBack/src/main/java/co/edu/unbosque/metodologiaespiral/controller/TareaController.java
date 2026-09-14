@@ -23,7 +23,7 @@ import co.edu.unbosque.metodologiaespiral.service.TareaService;
 
 @RestController
 @RequestMapping("/tareas")
-@CrossOrigin(origins = "http://investigacionsoftware.netlify.app")
+@CrossOrigin(origins = "*")
 public class TareaController {
 
     @Autowired
