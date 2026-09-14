@@ -68,13 +68,13 @@
       <input
         type="email"
         name="email"
-        placeholder="Enter Email Here"
+        placeholder="Ingrese el correo"
         [(ngModel)]="correo">
 
       <input
         type="password"
         name="password"
-        placeholder="Enter Password Here"
+        placeholder="Ingrese la Contraseña"
         [(ngModel)]="contrasenia">
 
       <button
@@ -84,8 +84,8 @@
         <a href="#" (click)="$event.preventDefault()">Login</a>
       </button>
 
-      <p class="link">Don't have an account<br>
-        <a href="#">Sign up </a> here</p>
+      <p class="link">No tienes una cuenta<br>
+        <a routerLink="/register">Registrate</a> aca</p>
 
 
 
