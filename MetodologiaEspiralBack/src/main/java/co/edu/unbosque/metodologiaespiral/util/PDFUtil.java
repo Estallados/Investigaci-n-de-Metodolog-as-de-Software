@@ -25,820 +25,480 @@ import co.edu.unbosque.metodologiaespiral.entity.Usuario;
 @Component
 public class PDFUtil {
 
-    private static final float MARGEN = 50;
-    private static final float ESPACIO_INFERIOR = 60;
+	private static final float MARGEN = 50;
+	private static final float ESPACIO_INFERIOR = 60;
 
-    private static final float ANCHO_PAGINA =
-            PDRectangle.A4.getWidth();
+	private static final float ANCHO_PAGINA = PDRectangle.A4.getWidth();
 
-    private static final float ALTO_PAGINA =
-            PDRectangle.A4.getHeight();
+	private static final float ALTO_PAGINA = PDRectangle.A4.getHeight();
 
-    private static final float ANCHO_UTIL =
-            ANCHO_PAGINA - (MARGEN * 2);
+	private static final float ANCHO_UTIL = ANCHO_PAGINA - (MARGEN * 2);
 
-    private static final DateTimeFormatter FORMATO_FECHA =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private PDDocument documento;
-    private PDPage paginaActual;
-    private PDPageContentStream contenido;
+	private PDDocument documento;
+	private PDPage paginaActual;
+	private PDPageContentStream contenido;
 
-    private PDFont fuenteNormal;
-    private PDFont fuenteNegrita;
+	private PDFont fuenteNormal;
+	private PDFont fuenteNegrita;
 
-    private float yActual;
+	private float yActual;
 
-    public byte[] generarPdf(Proyecto proyecto)
-            throws IOException {
+	public byte[] generarPdf(Proyecto proyecto) throws IOException {
 
-        ByteArrayOutputStream salida =
-                new ByteArrayOutputStream();
+		ByteArrayOutputStream salida = new ByteArrayOutputStream();
 
-        try (PDDocument doc = new PDDocument()) {
+		try (PDDocument doc = new PDDocument()) {
 
-            this.documento = doc;
+			this.documento = doc;
 
-            this.fuenteNormal =
-                    new PDType1Font(
-                            Standard14Fonts.FontName.TIMES_ROMAN);
+			this.fuenteNormal = new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN);
 
-            this.fuenteNegrita =
-                    new PDType1Font(
-                            Standard14Fonts.FontName.TIMES_BOLD);
+			this.fuenteNegrita = new PDType1Font(Standard14Fonts.FontName.TIMES_BOLD);
 
-            nuevaPagina();
+			nuevaPagina();
 
-            // Encabezado principal
-            dibujarEncabezadoPrincipal(proyecto);
+			// Encabezado principal
+			dibujarEncabezadoPrincipal(proyecto);
 
-            // Información del proyecto
-            dibujarCajaInformacionGeneral(proyecto);
+			// Información del proyecto
+			dibujarCajaInformacionGeneral(proyecto);
 
-            // Tareas
-            dibujarTituloSeccion("TAREAS");
+			// Tareas
+			dibujarTituloSeccion("TAREAS");
 
-            if (proyecto.getTareas() == null
-                    || proyecto.getTareas().isEmpty()) {
+			if (proyecto.getTareas() == null || proyecto.getTareas().isEmpty()) {
 
-                dibujarCajaMensaje(
-                        "Este proyecto no tiene tareas registradas.");
+				dibujarCajaMensaje("Este proyecto no tiene tareas registradas.");
 
-            } else {
+			} else {
 
-                for (Tarea tarea : proyecto.getTareas()) {
+				for (Tarea tarea : proyecto.getTareas()) {
 
-                    dibujarCajaTarea(tarea);
-                }
-            }
+					dibujarCajaTarea(tarea);
+				}
+			}
 
-            // Usuarios
-            dibujarTituloSeccion(
-                    "USUARIOS DEL PROYECTO");
+			dibujarTituloSeccion("USUARIOS DEL PROYECTO");
 
-            if (proyecto.getUsuarios() == null
-                    || proyecto.getUsuarios().isEmpty()) {
+			if (proyecto.getUsuarios() == null || proyecto.getUsuarios().isEmpty()) {
 
-                dibujarCajaMensaje(
-                        "Este proyecto no tiene usuarios asignados.");
+				dibujarCajaMensaje("Este proyecto no tiene usuarios asignados.");
 
-            } else {
+			} else {
 
-                for (Usuario usuario :
-                        proyecto.getUsuarios()) {
+				for (Usuario usuario : proyecto.getUsuarios()) {
 
-                    dibujarCajaUsuario(usuario);
-                }
-            }
+					dibujarCajaUsuario(usuario);
+				}
+			}
 
-            if (contenido != null) {
-                contenido.close();
-            }
+			if (contenido != null) {
+				contenido.close();
+				contenido = null;
+			}
 
-            documento.save(salida);
-        }
+			documento.save(salida);
 
-        return salida.toByteArray();
-    }
+		}
 
+		return salida.toByteArray();
+	}
 
-    private void nuevaPagina()
-            throws IOException {
+	private void nuevaPagina() throws IOException {
 
-        if (contenido != null) {
+		if (contenido != null) {
+			contenido.close();
+			contenido = null;
+		}
 
-            contenido.close();
-        }
+		paginaActual = new PDPage(PDRectangle.A4);
 
-        paginaActual =
-                new PDPage(PDRectangle.A4);
+		documento.addPage(paginaActual);
 
-        documento.addPage(paginaActual);
+		contenido = new PDPageContentStream(documento, paginaActual, PDPageContentStream.AppendMode.OVERWRITE, true,
+				true);
 
-        contenido =
-                new PDPageContentStream(
-                        documento,
-                        paginaActual);
+		yActual = ALTO_PAGINA - MARGEN;
+	}
 
-        yActual =
-                ALTO_PAGINA - MARGEN;
-    }
+	private void verificarEspacio(float altoNecesario) throws IOException {
 
+		if (yActual - altoNecesario < ESPACIO_INFERIOR) {
 
-    private void verificarEspacio(
-            float altoNecesario)
-            throws IOException {
+			nuevaPagina();
+		}
+	}
 
-        if (yActual - altoNecesario
-                < ESPACIO_INFERIOR) {
-
-            nuevaPagina();
-        }
-    }
-
-
-    private void dibujarEncabezadoPrincipal(
-            Proyecto proyecto)
-            throws IOException {
-
-        float altoEncabezado = 75;
-
-        contenido.setNonStrokingColor(
-                new Color(41, 128, 185));
-
-        contenido.addRect(
-                MARGEN,
-                yActual - altoEncabezado,
-                ANCHO_UTIL,
-                altoEncabezado);
-
-        contenido.fill();
-
-        escribirTexto(
-                "REPORTE DEL PROYECTO",
-                MARGEN + 20,
-                yActual - 28,
-                fuenteNegrita,
-                20,
-                Color.WHITE
-        );
-
-        escribirTexto(
-                textoSeguro(proyecto.getNombre()),
-                MARGEN + 20,
-                yActual - 52,
-                fuenteNormal,
-                12,
-                Color.WHITE
-        );
-
-        yActual -= altoEncabezado + 20;
-    }
-
-    private void dibujarCajaInformacionGeneral(
-            Proyecto proyecto)
-            throws IOException {
-
-        List<String> lineasDescripcion =
-                partirTexto(
-                        textoSeguro(
-                                proyecto.getDescripcion()),
-                        fuenteNormal,
-                        11,
-                        ANCHO_UTIL - 30
-                );
-
-        float altoCaja =
-                65
-                        + (lineasDescripcion.size() * 14);
-
-        verificarEspacio(altoCaja);
-
-        float x = MARGEN;
-        float y = yActual;
-
-        contenido.setNonStrokingColor(
-                new Color(245, 247, 250));
-
-        contenido.addRect(
-                x,
-                y - altoCaja,
-                ANCHO_UTIL,
-                altoCaja);
-
-        contenido.fill();
-
-        contenido.setStrokingColor(
-                new Color(189, 195, 199));
-
-        contenido.addRect(
-                x,
-                y - altoCaja,
-                ANCHO_UTIL,
-                altoCaja);
+	private void dibujarEncabezadoPrincipal(Proyecto proyecto) throws IOException {
 
-        contenido.stroke();
-
-        escribirTexto(
-                "Nombre del proyecto:",
-                x + 15,
-                y - 22,
-                fuenteNegrita,
-                12,
-                new Color(52, 73, 94)
-        );
+		float altoEncabezado = 75;
 
-        escribirTexto(
-                textoSeguro(proyecto.getNombre()),
-                x + 140,
-                y - 22,
-                fuenteNormal,
-                12,
-                Color.BLACK
-        );
+		contenido.setNonStrokingColor(new Color(41, 128, 185));
 
-        escribirTexto(
-                "Descripción:",
-                x + 15,
-                y - 45,
-                fuenteNegrita,
-                11,
-                new Color(52, 73, 94)
-        );
+		contenido.addRect(MARGEN, yActual - altoEncabezado, ANCHO_UTIL, altoEncabezado);
 
-        float yDescripcion =
-                y - 62;
+		contenido.fill();
 
-        for (String linea :
-                lineasDescripcion) {
+		escribirTexto("REPORTE DEL PROYECTO", MARGEN + 20, yActual - 28, fuenteNegrita, 20, Color.WHITE);
 
-            escribirTexto(
-                    linea,
-                    x + 15,
-                    yDescripcion,
-                    fuenteNormal,
-                    11,
-                    Color.BLACK
-            );
-
-            yDescripcion -= 14;
-        }
-
-        yActual -= altoCaja + 18;
-    }
-
-
-    private void dibujarTituloSeccion(
-            String titulo)
-            throws IOException {
+		escribirTexto(textoSeguro(proyecto.getNombre()), MARGEN + 20, yActual - 52, fuenteNormal, 12, Color.WHITE);
 
-        float alto = 28;
+		yActual -= altoEncabezado + 20;
+	}
 
-        verificarEspacio(alto + 15);
+	private void dibujarCajaInformacionGeneral(Proyecto proyecto) throws IOException {
 
-        contenido.setNonStrokingColor(
-                new Color(52, 152, 219));
+		List<String> lineasDescripcion = partirTexto(textoSeguro(proyecto.getDescripcion()), fuenteNormal, 11,
+				ANCHO_UTIL - 30);
 
-        contenido.addRect(
-                MARGEN,
-                yActual - alto,
-                ANCHO_UTIL,
-                alto);
+		float altoCaja = 65 + (lineasDescripcion.size() * 14);
 
-        contenido.fill();
+		verificarEspacio(altoCaja);
 
-        escribirTexto(
-                titulo,
-                MARGEN + 12,
-                yActual - 19,
-                fuenteNegrita,
-                13,
-                Color.WHITE
-        );
+		float x = MARGEN;
+		float y = yActual;
 
-        yActual -= alto + 14;
-    }
+		contenido.setNonStrokingColor(new Color(245, 247, 250));
 
+		contenido.addRect(x, y - altoCaja, ANCHO_UTIL, altoCaja);
 
-    private void dibujarCajaMensaje(
-            String mensaje)
-            throws IOException {
+		contenido.fill();
 
-        float alto = 40;
+		contenido.setStrokingColor(new Color(189, 195, 199));
 
-        verificarEspacio(alto);
+		contenido.addRect(x, y - altoCaja, ANCHO_UTIL, altoCaja);
 
-        float x = MARGEN;
-        float y = yActual;
+		contenido.stroke();
 
-        contenido.setNonStrokingColor(
-                new Color(252, 243, 207));
+		escribirTexto("Nombre del proyecto:", x + 15, y - 22, fuenteNegrita, 12, new Color(52, 73, 94));
 
-        contenido.addRect(
-                x,
-                y - alto,
-                ANCHO_UTIL,
-                alto);
+		escribirTexto(textoSeguro(proyecto.getNombre()), x + 140, y - 22, fuenteNormal, 12, Color.BLACK);
 
-        contenido.fill();
+		escribirTexto("Descripción:", x + 15, y - 45, fuenteNegrita, 11, new Color(52, 73, 94));
 
-        contenido.setStrokingColor(
-                new Color(241, 196, 15));
+		float yDescripcion = y - 62;
 
-        contenido.addRect(
-                x,
-                y - alto,
-                ANCHO_UTIL,
-                alto);
-
-        contenido.stroke();
+		for (String linea : lineasDescripcion) {
 
-        escribirTexto(
-                mensaje,
-                x + 12,
-                y - 25,
-                fuenteNormal,
-                11,
-                new Color(102, 51, 0)
-        );
+			escribirTexto(linea, x + 15, yDescripcion, fuenteNormal, 11, Color.BLACK);
 
-        yActual -= alto + 12;
-    }
-
+			yDescripcion -= 14;
+		}
 
-    private void dibujarCajaTarea(
-            Tarea tarea)
-            throws IOException {
+		yActual -= altoCaja + 18;
+	}
 
-        List<String> lineasDescripcion =
-                partirTexto(
-                        textoSeguro(
-                                tarea.getDescripcion()),
-                        fuenteNormal,
-                        10,
-                        ANCHO_UTIL - 30
-                );
+	private void dibujarTituloSeccion(String titulo) throws IOException {
 
-        float altoCaja =
-                110
-                        + (lineasDescripcion.size() * 12);
+		float alto = 28;
 
-        verificarEspacio(altoCaja);
+		verificarEspacio(alto + 15);
 
-        float x = MARGEN;
-        float y = yActual;
+		contenido.setNonStrokingColor(new Color(52, 152, 219));
 
+		contenido.addRect(MARGEN, yActual - alto, ANCHO_UTIL, alto);
 
-        contenido.setNonStrokingColor(
-                new Color(232, 244, 252));
+		contenido.fill();
 
-        contenido.addRect(
-                x,
-                y - altoCaja,
-                ANCHO_UTIL,
-                altoCaja);
+		escribirTexto(titulo, MARGEN + 12, yActual - 19, fuenteNegrita, 13, Color.WHITE);
 
-        contenido.fill();
+		yActual -= alto + 14;
+	}
 
-        contenido.setStrokingColor(
-                new Color(52, 152, 219));
+	private void dibujarCajaMensaje(String mensaje) throws IOException {
 
-        contenido.setLineWidth(1);
+		float alto = 40;
 
-        contenido.addRect(
-                x,
-                y - altoCaja,
-                ANCHO_UTIL,
-                altoCaja);
+		verificarEspacio(alto);
 
-        contenido.stroke();
+		float x = MARGEN;
+		float y = yActual;
 
+		contenido.setNonStrokingColor(new Color(252, 243, 207));
 
-        escribirTexto(
-                textoSeguro(
-                        tarea.getNombre()),
-                x + 15,
-                y - 20,
-                fuenteNegrita,
-                13,
-                new Color(21, 67, 96)
-        );
+		contenido.addRect(x, y - alto, ANCHO_UTIL, alto);
 
+		contenido.fill();
 
-        escribirTexto(
-                "Descripción:",
-                x + 15,
-                y - 42,
-                fuenteNegrita,
-                10,
-                Color.DARK_GRAY
-        );
+		contenido.setStrokingColor(new Color(241, 196, 15));
 
-        float posicionDescripcion =
-                y - 58;
+		contenido.addRect(x, y - alto, ANCHO_UTIL, alto);
 
-        for (String linea :
-                lineasDescripcion) {
+		contenido.stroke();
 
-            escribirTexto(
-                    linea,
-                    x + 15,
-                    posicionDescripcion,
-                    fuenteNormal,
-                    10,
-                    Color.BLACK
-            );
+		escribirTexto(mensaje, x + 12, y - 25, fuenteNormal, 11, new Color(102, 51, 0));
 
-            posicionDescripcion -= 12;
-        }
-
-
-        float estadoY =
-                posicionDescripcion - 8;
-
-        escribirTexto(
-                "Estado:",
-                x + 15,
-                estadoY,
-                fuenteNegrita,
-                10,
-                Color.DARK_GRAY
-        );
+		yActual -= alto + 12;
+	}
 
-        String estadoTexto =
-                obtenerEstadoSeguro(
-                        tarea.getEstado());
+	private void dibujarCajaTarea(Tarea tarea) throws IOException {
 
-        Color colorEstado =
-                obtenerColorEstado(
-                        tarea.getEstado());
+		List<String> lineasDescripcion = partirTexto(textoSeguro(tarea.getDescripcion()), fuenteNormal, 10,
+				ANCHO_UTIL - 30);
 
+		float altoCaja = 110 + (lineasDescripcion.size() * 12);
 
-        float estadoX = x + 75;
+		verificarEspacio(altoCaja);
 
-        float anchoEstado = 115;
-        float altoEstado = 20;
+		float x = MARGEN;
+		float y = yActual;
 
-        float cajaEstadoY =
-                estadoY - 14;
+		contenido.setNonStrokingColor(new Color(232, 244, 252));
 
-        // Fondo del estado
+		contenido.addRect(x, y - altoCaja, ANCHO_UTIL, altoCaja);
 
-        contenido.setNonStrokingColor(
-                colorEstado);
+		contenido.fill();
 
-        contenido.addRect(
-                estadoX,
-                cajaEstadoY,
-                anchoEstado,
-                altoEstado);
+		contenido.setStrokingColor(new Color(52, 152, 219));
 
-        contenido.fill();
+		contenido.setLineWidth(1);
 
-        /*
-         * Calculamos el ancho del texto
-         * para centrarlo.
-         */
+		contenido.addRect(x, y - altoCaja, ANCHO_UTIL, altoCaja);
 
-        float tamanioEstado = 9;
+		contenido.stroke();
 
-        float anchoTextoEstado =
-                (fuenteNegrita
-                        .getStringWidth(
-                                estadoTexto)
-                        / 1000)
-                        * tamanioEstado;
+		escribirTexto(textoSeguro(tarea.getNombre()), x + 15, y - 20, fuenteNegrita, 13, new Color(21, 67, 96));
 
-        float textoEstadoX =
-                estadoX
-                        + (anchoEstado
-                        - anchoTextoEstado)
-                        / 2;
-
-
-
-        float textoEstadoY =
-                cajaEstadoY + 6;
+		escribirTexto("Descripción:", x + 15, y - 42, fuenteNegrita, 10, Color.DARK_GRAY);
 
-        escribirTexto(
-                estadoTexto,
-                textoEstadoX,
-                textoEstadoY,
-                fuenteNegrita,
-                tamanioEstado,
-                Color.WHITE
-        );
+		float posicionDescripcion = y - 58;
 
+		for (String linea : lineasDescripcion) {
 
-        float fechasY =
-                cajaEstadoY - 22;
+			escribirTexto(linea, x + 15, posicionDescripcion, fuenteNormal, 10, Color.BLACK);
 
-        escribirTexto(
-                "Fecha inicio: "
-                        + fechaSegura(
-                        tarea.getFechaInicio()),
-                x + 15,
-                fechasY,
-                fuenteNormal,
-                10,
-                Color.BLACK
-        );
+			posicionDescripcion -= 12;
+		}
 
-        escribirTexto(
-                "Fecha entrega: "
-                        + fechaSegura(
-                        tarea.getFechaEntrega()),
-                x + 230,
-                fechasY,
-                fuenteNormal,
-                10,
-                Color.BLACK
-        );
+		float estadoY = posicionDescripcion - 8;
 
-        yActual -= altoCaja + 14;
-    }
+		escribirTexto("Estado:", x + 15, estadoY, fuenteNegrita, 10, Color.DARK_GRAY);
 
+		String estadoTexto = obtenerEstadoSeguro(tarea.getEstado());
 
+		Color colorEstado = obtenerColorEstado(tarea.getEstado());
 
-    private void dibujarCajaUsuario(
-            Usuario usuario)
-            throws IOException {
+		float estadoX = x + 75;
 
-        float altoCaja = 60;
+		float anchoEstado = 115;
+		float altoEstado = 20;
 
-        verificarEspacio(altoCaja);
+		float cajaEstadoY = estadoY - 14;
 
-        float x = MARGEN;
-        float y = yActual;
+		// Fondo del estado
 
-        contenido.setNonStrokingColor(
-                new Color(232, 248, 245));
+		contenido.setNonStrokingColor(colorEstado);
 
-        contenido.addRect(
-                x,
-                y - altoCaja,
-                ANCHO_UTIL,
-                altoCaja);
+		contenido.addRect(estadoX, cajaEstadoY, anchoEstado, altoEstado);
 
-        contenido.fill();
+		contenido.fill();
 
-        contenido.setStrokingColor(
-                new Color(46, 204, 113));
+		/*
+		 * Calculamos el ancho del texto para centrarlo.
+		 */
 
-        contenido.addRect(
-                x,
-                y - altoCaja,
-                ANCHO_UTIL,
-                altoCaja);
+		float tamanioEstado = 9;
 
-        contenido.stroke();
+		float anchoTextoEstado = (fuenteNegrita.getStringWidth(estadoTexto) / 1000) * tamanioEstado;
 
-        escribirTexto(
-                textoSeguro(
-                        usuario.getNombre()),
-                x + 15,
-                y - 22,
-                fuenteNegrita,
-                12,
-                new Color(20, 90, 50)
-        );
+		float textoEstadoX = estadoX + (anchoEstado - anchoTextoEstado) / 2;
 
-        escribirTexto(
-                "Correo: "
-                        + textoSeguro(
-                        usuario.getCorreo()),
-                x + 15,
-                y - 42,
-                fuenteNormal,
-                10,
-                Color.BLACK
-        );
+		float textoEstadoY = cajaEstadoY + 6;
 
-        yActual -= altoCaja + 12;
-    }
+		escribirTexto(estadoTexto, textoEstadoX, textoEstadoY, fuenteNegrita, tamanioEstado, Color.WHITE);
 
+		float fechasY = cajaEstadoY - 22;
 
+		escribirTexto("Fecha inicio: " + fechaSegura(tarea.getFechaInicio()), x + 15, fechasY, fuenteNormal, 10,
+				Color.BLACK);
 
-    private void escribirTexto(
-            String texto,
-            float x,
-            float y,
-            PDFont fuente,
-            float tamanio,
-            Color color)
-            throws IOException {
+		escribirTexto("Fecha entrega: " + fechaSegura(tarea.getFechaEntrega()), x + 230, fechasY, fuenteNormal, 10,
+				Color.BLACK);
 
-        contenido.beginText();
+		yActual -= altoCaja + 14;
+	}
 
-        contenido.setFont(
-                fuente,
-                tamanio);
+	private void dibujarCajaUsuario(Usuario usuario) throws IOException {
 
-        contenido.setNonStrokingColor(
-                color);
+		float altoCaja = 60;
 
-        contenido.newLineAtOffset(
-                x,
-                y);
+		verificarEspacio(altoCaja);
 
-        contenido.showText(
-                textoSeguroPdf(texto));
+		float x = MARGEN;
+		float y = yActual;
 
-        contenido.endText();
-    }
+		contenido.setNonStrokingColor(new Color(232, 248, 245));
 
+		contenido.addRect(x, y - altoCaja, ANCHO_UTIL, altoCaja);
 
+		contenido.fill();
 
-    private List<String> partirTexto(
-            String texto,
-            PDFont fuente,
-            float tamanio,
-            float anchoMaximo)
-            throws IOException {
+		contenido.setStrokingColor(new Color(46, 204, 113));
 
-        List<String> lineas =
-                new ArrayList<>();
+		contenido.addRect(x, y - altoCaja, ANCHO_UTIL, altoCaja);
 
-        if (texto == null
-                || texto.trim().isEmpty()) {
+		contenido.stroke();
 
-            lineas.add(
-                    "No disponible");
+		escribirTexto(textoSeguro(usuario.getNombre()), x + 15, y - 22, fuenteNegrita, 12, new Color(20, 90, 50));
 
-            return lineas;
-        }
+		escribirTexto("Correo: " + textoSeguro(usuario.getCorreo()), x + 15, y - 42, fuenteNormal, 10, Color.BLACK);
 
-        String[] palabras =
-                texto.split("\\s+");
+		yActual -= altoCaja + 12;
+	}
 
-        StringBuilder lineaActual =
-                new StringBuilder();
+	private void escribirTexto(String texto, float x, float y, PDFont fuente, float tamanio, Color color)
+			throws IOException {
 
-        for (String palabra :
-                palabras) {
+		contenido.beginText();
 
-            String posibleLinea;
+		contenido.setFont(fuente, tamanio);
 
-            if (lineaActual.length() == 0) {
+		contenido.setNonStrokingColor(color);
 
-                posibleLinea =
-                        palabra;
+		contenido.newLineAtOffset(x, y);
 
-            } else {
+		contenido.showText(textoSeguroPdf(texto));
 
-                posibleLinea =
-                        lineaActual
-                                + " "
-                                + palabra;
-            }
+		contenido.endText();
+	}
 
-            float anchoTexto =
-                    (fuente.getStringWidth(
-                            posibleLinea)
-                            / 1000)
-                            * tamanio;
+	private List<String> partirTexto(String texto, PDFont fuente, float tamanio, float anchoMaximo) throws IOException {
 
-            if (anchoTexto
-                    > anchoMaximo
-                    && lineaActual.length() > 0) {
+		List<String> lineas = new ArrayList<>();
 
-                lineas.add(
-                        lineaActual.toString());
+		if (texto == null || texto.trim().isEmpty()) {
 
-                lineaActual =
-                        new StringBuilder(
-                                palabra);
+			lineas.add("No disponible");
 
-            } else {
+			return lineas;
+		}
 
-                if (lineaActual.length() > 0) {
+		String[] palabras = texto.split("\\s+");
 
-                    lineaActual.append(" ");
-                }
+		StringBuilder lineaActual = new StringBuilder();
 
-                lineaActual.append(
-                        palabra);
-            }
-        }
+		for (String palabra : palabras) {
 
-        if (lineaActual.length() > 0) {
+			String posibleLinea;
 
-            lineas.add(
-                    lineaActual.toString());
-        }
+			if (lineaActual.length() == 0) {
 
-        return lineas;
-    }
+				posibleLinea = palabra;
 
+			} else {
 
-    private String textoSeguro(
-            String texto) {
+				posibleLinea = lineaActual + " " + palabra;
+			}
 
-        if (texto == null
-                || texto.trim().isEmpty()) {
+			float anchoTexto = (fuente.getStringWidth(posibleLinea) / 1000) * tamanio;
 
-            return "No disponible";
-        }
+			if (anchoTexto > anchoMaximo && lineaActual.length() > 0) {
 
-        return texto;
-    }
+				lineas.add(lineaActual.toString());
 
+				lineaActual = new StringBuilder(palabra);
 
-    private String textoSeguroPdf(
-            String texto) {
+			} else {
 
-        if (texto == null) {
-            return "";
-        }
+				if (lineaActual.length() > 0) {
 
-        return texto
-                .replace("\n", " ")
-                .replace("\r", " ")
-                .replace("\t", " ");
-    }
+					lineaActual.append(" ");
+				}
 
+				lineaActual.append(palabra);
+			}
+		}
 
-    private String fechaSegura(
-            LocalDate fecha) {
+		if (lineaActual.length() > 0) {
 
-        if (fecha == null) {
+			lineas.add(lineaActual.toString());
+		}
 
-            return "No disponible";
-        }
+		return lineas;
+	}
 
-        return fecha.format(
-                FORMATO_FECHA);
-    }
+	private String textoSeguro(String texto) {
 
+		if (texto == null || texto.trim().isEmpty()) {
 
-    private String obtenerEstadoSeguro(
-            Estado estado) {
+			return "No disponible";
+		}
 
-        if (estado == null) {
+		return texto;
+	}
 
-            return "SIN ESTADO";
-        }
+	private String textoSeguroPdf(String texto) {
 
-        switch (estado) {
+		if (texto == null) {
+			return "";
+		}
 
-            case PENDIENTE:
-                return "PENDIENTE";
+		return texto.replace("\n", " ").replace("\r", " ").replace("\t", " ");
+	}
 
-            case EN_CURSO:
-                return "EN CURSO";
+	private String fechaSegura(LocalDate fecha) {
 
-            case COMPLETADO:
-                return "COMPLETADO";
+		if (fecha == null) {
 
-            default:
-                return "SIN ESTADO";
-        }
-    }
+			return "No disponible";
+		}
 
-    private Color obtenerColorEstado(
-            Estado estado) {
+		return fecha.format(FORMATO_FECHA);
+	}
 
-        if (estado == null) {
+	private String obtenerEstadoSeguro(Estado estado) {
 
-            // Gris
-            return new Color(
-                    127,
-                    140,
-                    141);
-        }
+		if (estado == null) {
 
-        switch (estado) {
+			return "SIN ESTADO";
+		}
 
-            case PENDIENTE:
+		switch (estado) {
 
-                // Naranja
-                return new Color(
-                        243,
-                        156,
-                        18);
+		case PENDIENTE:
+			return "PENDIENTE";
 
-            case EN_CURSO:
+		case EN_CURSO:
+			return "EN CURSO";
 
-                // Azul
-                return new Color(
-                        52,
-                        152,
-                        219);
+		case COMPLETADO:
+			return "COMPLETADO";
 
-            case COMPLETADO:
+		default:
+			return "SIN ESTADO";
+		}
+	}
 
-                // Verde
-                return new Color(
-                        39,
-                        174,
-                        96);
+	private Color obtenerColorEstado(Estado estado) {
 
-            default:
+		if (estado == null) {
 
-                return new Color(
-                        127,
-                        140,
-                        141);
-        }
-    }
+			// Gris
+			return new Color(127, 140, 141);
+		}
+
+		switch (estado) {
+
+		case PENDIENTE:
+
+			// Naranja
+			return new Color(243, 156, 18);
+
+		case EN_CURSO:
+
+			// Azul
+			return new Color(52, 152, 219);
+
+		case COMPLETADO:
+
+			// Verde
+			return new Color(39, 174, 96);
+
+		default:
+
+			return new Color(127, 140, 141);
+		}
+	}
 }
