@@ -18,6 +18,7 @@ co\edu\unbosque\metodologiaespiral\dto\TareaDTO.class
 co\edu\unbosque\metodologiaespiral\entity\Estado.class
 co\edu\unbosque\metodologiaespiral\exception\CharacterException.class
 co\edu\unbosque\metodologiaespiral\exception\NumberException.class
+co\edu\unbosque\metodologiaespiral\util\PDFUtil$1.class
 co\edu\unbosque\metodologiaespiral\service\TareaService.class
 co\edu\unbosque\metodologiaespiral\entity\Proyecto.class
 co\edu\unbosque\metodologiaespiral\repository\UsuarioRepository.class
@@ -25,7 +26,6 @@ co\edu\unbosque\metodologiaespiral\exception\SymbolException.class
 co\edu\unbosque\metodologiaespiral\service\ProyectoService.class
 co\edu\unbosque\metodologiaespiral\controller\TareaController.class
 co\edu\unbosque\metodologiaespiral\exception\TextException.class
-co\edu\unbosque\metodologiaespiral\util\CorreoUtil.class
 co\edu\unbosque\metodologiaespiral\entity\Tarea.class
 co\edu\unbosque\metodologiaespiral\exception\ExceptionCheker.class
 co\edu\unbosque\metodologiaespiral\entity\Usuario.class
