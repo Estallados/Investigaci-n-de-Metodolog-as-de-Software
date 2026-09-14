@@ -1,9 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+
+import { UsuarioService } from '../services/usuario.service';
+import { UsuarioDTO } from '../model/Usuario.dto';
 
 @Component({
-  imports: [],
   selector: 'app-perfil',
-  styles: ``,
-  templateUrl: './perfil.html',
+  standalone: true,
+  imports: [
+    RouterLink
+  ],
+  templateUrl: './perfil.html'
 })
-export class Perfil {}
+export class Perfil implements OnInit {
+
+  usuario: UsuarioDTO | null = null;
+
+  constructor(
+    private usuarioService: UsuarioService,
+    private router: Router
+  ) {
+  }
+
+  ngOnInit(): void {
+
+    this.usuario = this.usuarioService.usuarioActual;
+
+    console.log('Usuario en perfil:', this.usuario);
+
+
+    if (this.usuario === null) {
+      this.router.navigate(['/login']);
+    }
+  }
+}

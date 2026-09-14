@@ -1,25 +1,27 @@
 <div class="bg-[#1c1c24] min-h-screen flex items-center justify-center p-4">
 
-  <div class="w-full max-w-[1200px] bg-[#13131a] rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+  <div
+    class="w-full max-w-[1200px] bg-[#13131a] rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
+  >
 
-    <!-- Left Section -->
+
     <div class="w-full md:w-1/2 relative">
 
-      <a
-        href="#"
+      <span
         class="absolute top-6 left-6 text-white text-2xl font-bold z-10"
       >
         ARK
-      </a>
+      </span>
+
 
       <a
         routerLink="/login"
-        class="absolute top-6 right-6 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm hover:bg-white/20 transition-colors z-10"
+        class="absolute top-6 right-6 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm hover:bg-white/20 transition-colors z-10 cursor-pointer"
       >
         Back to login →
       </a>
 
-      <div class="relative h-full">
+      <div class="relative h-full min-h-[500px]">
 
         <img
           src="https://distillery.com/wp-content/uploads/2024/10/Why-Agile-is-the-Secret-Sauce-for-Successful-Software-Projects-1080x675.png"
@@ -42,12 +44,13 @@
           </div>
 
         </div>
+
       </div>
 
     </div>
 
 
-    <!-- Right Section -->
+
     <div class="w-full md:w-1/2 p-6 md:p-12">
 
       <div class="max-w-md mx-auto">
@@ -61,67 +64,78 @@
 
           <a
             routerLink="/login"
-            class="text-white hover:underline"
+            class="text-white hover:underline cursor-pointer"
           >
             Log in
           </a>
         </p>
 
 
-        <!-- FORMULARIO -->
+
         <form
           class="space-y-4"
           (ngSubmit)="registrar()"
         >
 
-          <!-- Nombre -->
+
           <input
             type="text"
             name="nombre"
             [(ngModel)]="nombre"
             placeholder="Ingrese el nombre"
-            class="w-full bg-[#1c1c24] text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            autocomplete="name"
+            class="w-full bg-[#1c1c24] text-white rounded-lg p-3
+                   focus:outline-none focus:ring-2 focus:ring-cyan-500"
           >
 
 
-          <!-- Correo -->
+
           <input
             type="email"
             name="correo"
             [(ngModel)]="correo"
-            placeholder="Email"
-            class="w-full bg-[#1c1c24] text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            placeholder="Correo electrónico"
+            autocomplete="email"
+            class="w-full bg-[#1c1c24] text-white rounded-lg p-3
+                   focus:outline-none focus:ring-2 focus:ring-cyan-500"
           >
 
 
-          <!-- Contraseña -->
+
           <input
             type="password"
             name="contrasenia"
             [(ngModel)]="contrasenia"
             placeholder="Contraseña"
-            class="w-full bg-[#1c1c24] text-white rounded-lg p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            autocomplete="new-password"
+            class="w-full bg-[#1c1c24] text-white rounded-lg p-3
+                   focus:outline-none focus:ring-2 focus:ring-cyan-500"
           >
 
 
-          <!-- Confirmar contraseña -->
+
           <input
             type="password"
             name="confirmarContrasenia"
             [(ngModel)]="confirmarContrasenia"
             placeholder="Confirmar contraseña"
-            class="w-full bg-[#1c1c24] text-white rounded-lg p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            autocomplete="new-password"
+            class="w-full bg-[#1c1c24] text-white rounded-lg p-3
+                   focus:outline-none focus:ring-2 focus:ring-cyan-500"
           >
 
 
-          <!-- Términos -->
-          <label class="flex items-center space-x-2 cursor-pointer">
+
+          <label
+            class="flex items-center space-x-2 cursor-pointer"
+          >
 
             <input
               type="checkbox"
               name="aceptaTerminos"
               [(ngModel)]="aceptaTerminos"
-              class="rounded bg-[#1c1c24] border-gray-600 text-cyan-500 focus:ring-cyan-500"
+              class="rounded bg-[#1c1c24] border-gray-600
+                     text-cyan-500 focus:ring-cyan-500"
             >
 
             <span class="text-gray-400">
@@ -134,48 +148,51 @@
           </label>
 
 
-          <!-- Mensaje -->
+
           @if (mensaje) {
 
-            <p
-              class="text-sm"
-              [class.text-green-400]="registroExitoso"
-              [class.text-red-400]="!registroExitoso"
+            <div
+              class="w-full bg-red-500 text-white rounded-lg p-3 text-sm"
             >
               {{ mensaje }}
-            </p>
+            </div>
 
           }
 
 
-          <!-- Botón registrar -->
+
           <button
             type="submit"
-            class="w-full bg-cyan-600 text-white rounded-lg p-3 hover:bg-cyan-500 transition-colors"
+            class="w-full bg-cyan-600 text-white font-semibold rounded-lg p-3
+                   hover:bg-cyan-500 transition-colors cursor-pointer"
           >
             Create account
           </button>
 
 
-          <!-- Animación -->
+
           <div class="relative my-8">
 
             <div class="absolute inset-0 flex items-center">
               <div class="w-full border-t border-gray-700"></div>
             </div>
 
-            <div class="relative flex justify-center text-sm">
+            <div class="relative flex justify-center">
 
-              <div class="flex flex-row gap-2">
-
-                <div class="w-4 h-4 rounded-full bg-cyan-500 animate-bounce"></div>
+              <div class="flex flex-row gap-2 bg-[#13131a] px-4">
 
                 <div
-                  class="w-4 h-4 rounded-full bg-cyan-500 animate-bounce [animation-delay:-.3s]"
+                  class="w-4 h-4 rounded-full bg-cyan-500 animate-bounce"
                 ></div>
 
                 <div
-                  class="w-4 h-4 rounded-full bg-cyan-500 animate-bounce [animation-delay:-.5s]"
+                  class="w-4 h-4 rounded-full bg-cyan-500 animate-bounce
+                         [animation-delay:-.3s]"
+                ></div>
+
+                <div
+                  class="w-4 h-4 rounded-full bg-cyan-500 animate-bounce
+                         [animation-delay:-.5s]"
                 ></div>
 
               </div>
@@ -187,6 +204,7 @@
         </form>
 
       </div>
+
     </div>
 
   </div>

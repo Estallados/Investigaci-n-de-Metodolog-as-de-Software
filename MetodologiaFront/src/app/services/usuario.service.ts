@@ -8,7 +8,9 @@ import { UsuarioDTO } from '../model/Usuario.dto';
   providedIn: 'root'
 })
 export class UsuarioService {
+
   usuarioActual: UsuarioDTO | null = null;
+
   private apiUrl =
     'https://investigaci-n-de-metodolog-as-de-horr.onrender.com/usuarios';
 
@@ -16,6 +18,7 @@ export class UsuarioService {
   }
 
 
+  // LISTAR USUARIOS
   listarUsuarios(): Observable<UsuarioDTO[]> {
 
     return this.http.get<UsuarioDTO[]>(
@@ -24,7 +27,7 @@ export class UsuarioService {
   }
 
 
-
+  // OBTENER USUARIO POR ID
   obtenerUsuario(id: number): Observable<UsuarioDTO> {
 
     return this.http.get<UsuarioDTO>(
@@ -33,7 +36,7 @@ export class UsuarioService {
   }
 
 
-
+  // OBTENER USUARIO POR CORREO
   obtenerUsuarioPorCorreo(correo: string): Observable<UsuarioDTO> {
 
     return this.http.get<UsuarioDTO>(
@@ -47,7 +50,7 @@ export class UsuarioService {
   }
 
 
-
+  // CREAR USUARIO
   crearUsuario(usuario: UsuarioDTO): Observable<string> {
 
     return this.http.post(
@@ -60,7 +63,7 @@ export class UsuarioService {
   }
 
 
-
+  // ACTUALIZAR USUARIO
   actualizarUsuario(
     id: number,
     usuario: UsuarioDTO
@@ -76,7 +79,7 @@ export class UsuarioService {
   }
 
 
-
+  // ELIMINAR USUARIO
   eliminarUsuario(id: number): Observable<string> {
 
     return this.http.delete(
@@ -88,6 +91,7 @@ export class UsuarioService {
   }
 
 
+  // LOGIN
   login(
     correo: string,
     contrasenia: string
@@ -98,67 +102,89 @@ export class UsuarioService {
       contrasenia: contrasenia
     };
 
-    return new Observable<number>(observer => {
+    return new Observable<number>((observer) => {
 
       this.http.post<number>(
         `${this.apiUrl}/login`,
         datos
       ).subscribe({
 
-        next: (resultado) => {
+        next: (resultado: number) => {
 
-          // Login correcto
+          // 0 = login correcto
           if (resultado === 0) {
 
-            this.obtenerUsuarioPorCorreo(correo).subscribe({
+            this.obtenerUsuarioPorCorreo(correo)
+              .subscribe({
 
-              next: (usuario) => {
+                next: (usuario: UsuarioDTO) => {
 
-                if (usuario.id === undefined) {
-                  observer.error('El usuario obtenido no tiene ID');
-                  return;
-                }
+                  if (usuario.id === undefined) {
 
-                this.obtenerUsuario(usuario.id).subscribe({
-
-                  next: (usuarioCompleto) => {
-
-                    this.usuarioActual = usuarioCompleto;
-
-                    console.log(
-                      'USUARIO ACTUAL:',
-                      this.usuarioActual
+                    observer.error(
+                      'El usuario obtenido no tiene ID'
                     );
 
-                    observer.next(resultado);
-                    observer.complete();
-                  },
-
-                  error: (error) => {
-                    observer.error(error);
+                    return;
                   }
 
-                });
+                  this.obtenerUsuario(usuario.id)
+                    .subscribe({
 
-              },
+                      next: (usuarioCompleto: UsuarioDTO) => {
 
-              error: (error) => {
-                observer.error(error);
-              }
+                        this.usuarioActual = usuarioCompleto;
 
-            });
+                        console.log(
+                          'USUARIO ACTUAL:',
+                          this.usuarioActual
+                        );
+
+                        observer.next(resultado);
+                        observer.complete();
+                      },
+
+                      error: (error) => {
+
+                        console.error(
+                          'Error obteniendo usuario completo:',
+                          error
+                        );
+
+                        observer.error(error);
+                      }
+
+                    });
+                },
+
+                error: (error) => {
+
+                  console.error(
+                    'Error obteniendo usuario por correo:',
+                    error
+                  );
+
+                  observer.error(error);
+                }
+
+              });
 
           } else {
 
-            // Login incorrecto
+            // 1 = correo incorrecto
+            // 2 = contraseña incorrecta
             observer.next(resultado);
             observer.complete();
-
           }
-
         },
 
         error: (error) => {
+
+          console.error(
+            'Error en el login:',
+            error
+          );
+
           observer.error(error);
         }
 
