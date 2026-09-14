@@ -8,7 +8,7 @@ import { UsuarioDTO } from '../model/Usuario.dto';
   providedIn: 'root'
 })
 export class UsuarioService {
-
+  usuarioActual: UsuarioDTO | null = null;
   private apiUrl =
     'https://investigaci-n-de-metodolog-as-de-horr.onrender.com/usuarios';
 
@@ -88,7 +88,6 @@ export class UsuarioService {
   }
 
 
-  // LOGIN
   login(
     correo: string,
     contrasenia: string
@@ -99,10 +98,73 @@ export class UsuarioService {
       contrasenia: contrasenia
     };
 
-    return this.http.post<number>(
-      `${this.apiUrl}/login`,
-      datos
-    );
+    return new Observable<number>(observer => {
+
+      this.http.post<number>(
+        `${this.apiUrl}/login`,
+        datos
+      ).subscribe({
+
+        next: (resultado) => {
+
+          // Login correcto
+          if (resultado === 0) {
+
+            this.obtenerUsuarioPorCorreo(correo).subscribe({
+
+              next: (usuario) => {
+
+                if (usuario.id === undefined) {
+                  observer.error('El usuario obtenido no tiene ID');
+                  return;
+                }
+
+                this.obtenerUsuario(usuario.id).subscribe({
+
+                  next: (usuarioCompleto) => {
+
+                    this.usuarioActual = usuarioCompleto;
+
+                    console.log(
+                      'USUARIO ACTUAL:',
+                      this.usuarioActual
+                    );
+
+                    observer.next(resultado);
+                    observer.complete();
+                  },
+
+                  error: (error) => {
+                    observer.error(error);
+                  }
+
+                });
+
+              },
+
+              error: (error) => {
+                observer.error(error);
+              }
+
+            });
+
+          } else {
+
+            // Login incorrecto
+            observer.next(resultado);
+            observer.complete();
+
+          }
+
+        },
+
+        error: (error) => {
+          observer.error(error);
+        }
+
+      });
+
+    });
   }
 
 }
