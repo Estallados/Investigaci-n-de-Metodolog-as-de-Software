@@ -1,138 +1,239 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Webpage Design</title>
+<div
+  class="min-h-screen bg-slate-950 text-white
+         flex items-center justify-center
+         px-6 py-10"
+>
 
-</head>
-<body>
+  <div
+    class="w-full max-w-7xl
+           grid grid-cols-1 lg:grid-cols-2
+           gap-12 items-center"
+  >
 
+    <!-- ========================= -->
+    <!-- LADO IZQUIERDO -->
+    <!-- ========================= -->
 
+    <div class="space-y-8">
 
+      <!-- BOTONES SUPERIORES -->
+      <div class="flex flex-wrap gap-4">
 
-
-
-
-
-<div class="main">
-
-
-
-  <div class="input">
-
-    <button class="value" routerLink="/register" type="button">
-      <svg
-        viewBox="0 0 16 16"
-        xmlns="http://www.w3.org/2000/svg"
-        data-name="Layer 2">
-      </svg>
-      REGISTRARSE
-    </button>
-
-    <button class="value" routerLink="/metodologias" type="button">
-      <svg
-        id="line"
-        viewBox="0 0 32 32"
-        xmlns="http://www.w3.org/2000/svg">
-      </svg>
-      METODOLOGÍAS
-    </button>
-
-  </div>
+        <button
+          routerLink="/register"
+          type="button"
+          class="px-6 py-3
+                 rounded-xl
+                 border border-cyan-500
+                 text-cyan-400
+                 font-semibold
+                 transition-all duration-300
+                 hover:bg-cyan-500
+                 hover:text-slate-950
+                 hover:scale-105"
+        >
+          Registrarse
+        </button>
 
 
+        <button
+          routerLink="/metodologias"
+          type="button"
+          class="px-6 py-3
+                 rounded-xl
+                 border border-slate-700
+                 bg-slate-900
+                 text-white
+                 font-semibold
+                 transition-all duration-300
+                 hover:border-cyan-400
+                 hover:text-cyan-400
+                 hover:scale-105"
+        >
+          Metodologías
+        </button>
+
+      </div>
 
 
+      <!-- TEXTO PRINCIPAL -->
+      <div>
 
-  <div class="content">
-    <h1>Metodologías de software &<br><span>Proyectos</span> <br>Nuestra WEB:</h1>
-    <p class="par">Aquí encontrarás diferentes metodologías de desarrollo de software y de gestión <br>
-      de proyectos, explicadas de forma clara y organizada. Podrás conocer sus principales <br>
-      características, ventajas, etapas y formas de aplicación, con el objetivo de comprender <br>
-      cuál metodología puede adaptarse mejor a las necesidades de cada proyecto.
-    </p>
+        <p
+          class="text-sm uppercase
+                 tracking-[0.3em]
+                 text-cyan-400
+                 font-semibold
+                 mb-4"
+        >
+          Gestión y desarrollo
+        </p>
 
 
-    <div class="wrapper">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="shadow"></div>
-      <div class="shadow"></div>
-      <div class="shadow"></div>
+        <h1
+          class="text-4xl
+                 md:text-5xl
+                 lg:text-6xl
+                 font-bold
+                 leading-tight"
+        >
+          Metodologías de
+
+          <span class="text-cyan-400">
+            software
+          </span>
+
+          & proyectos
+        </h1>
+
+
+        <p
+          class="mt-6
+                 max-w-xl
+                 text-slate-400
+                 text-base
+                 md:text-lg
+                 leading-relaxed"
+        >
+          Aquí encontrarás diferentes metodologías de desarrollo de
+          software y de gestión de proyectos, explicadas de forma clara
+          y organizada. Podrás conocer sus principales características,
+          ventajas, etapas y formas de aplicación.
+        </p>
+
+      </div>
+
+
+      <!-- DECORACIÓN -->
+      <div class="flex items-center gap-5 pt-4">
+
+        <div
+          class="w-4 h-4
+                 rounded-full
+                 bg-cyan-400
+                 animate-pulse"
+        ></div>
+
+        <div
+          class="w-4 h-4
+                 rounded-full
+                 bg-blue-500
+                 animate-pulse"
+        ></div>
+
+        <div
+          class="w-4 h-4
+                 rounded-full
+                 bg-purple-500
+                 animate-pulse"
+        ></div>
+
+        <div
+          class="h-px w-40
+                 bg-gradient-to-r
+                 from-cyan-400
+                 to-transparent"
+        ></div>
+
+      </div>
+
     </div>
 
 
-    <div class="form">
-      <div class="flex justify-center mb-5">
 
-        <div class="relative group">
+    <!-- ========================= -->
+    <!-- LOGIN -->
+    <!-- ========================= -->
 
-          <div
-            class="relative w-45 p-px
-             text-white
-             bg-gray-800
-             shadow-lg
-             rounded-xl
-             transition-transform duration-300
-             hover:scale-105"
-          >
+    <div class="flex justify-center">
+
+      <div
+        class="w-full max-w-md
+               bg-slate-900
+               border border-slate-800
+               rounded-3xl
+               shadow-2xl
+               shadow-black/40
+               p-8
+               md:p-10"
+      >
 
 
-            <span
-              class="absolute inset-0
-               rounded-xl
-               bg-gradient-to-r
-               from-teal-400
-               via-blue-500
-               to-purple-500
-               p-[2px]
-               opacity-0
-               transition-opacity duration-500
-               group-hover:opacity-100"
-            >
-      </span>
+        <!-- DISEÑO LOGIN -->
+        <div class="flex justify-center mb-10">
 
+          <div class="relative group">
 
             <div
-              class="relative z-10
-               bg-gray-950
-               rounded-xl
-               px-4 py-2"
+              class="relative w-44 p-px
+                     text-white
+                     bg-gray-800
+                     shadow-lg
+                     rounded-xl
+                     transition-transform duration-300
+                     hover:scale-105"
             >
 
+              <!-- BORDE DEGRADADO -->
+              <span
+                class="absolute inset-0
+                       rounded-xl
+                       bg-gradient-to-r
+                       from-teal-400
+                       via-blue-500
+                       to-purple-500
+                       p-[2px]
+                       opacity-0
+                       transition-opacity duration-500
+                       group-hover:opacity-100"
+              >
+              </span>
+
+
+              <!-- INTERIOR -->
               <div
-                class="flex items-center
-                 justify-center
-                 gap-2"
+                class="relative z-10
+                       bg-gray-950
+                       rounded-xl
+                       px-5 py-3"
               >
 
-
-                <span
-                  class="font-semibold
-                   whitespace-nowrap
-                   transition-transform duration-500
-                   group-hover:translate-x-1"
-                  style="font-size: 28px;"
+                <div
+                  class="flex items-center
+                         justify-center
+                         gap-2"
                 >
-            Login ->
-          </span>
 
-
-                <svg
-                  class="w-4 h-4
-                   transition-transform duration-500
-                   group-hover:translate-x-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                  <span
+                    class="text-xl
+                           font-semibold
+                           whitespace-nowrap
+                           transition-transform duration-500
+                           group-hover:translate-x-1"
                   >
-                  </path>
-                </svg>
+                    Login
+                  </span>
+
+
+                  <svg
+                    class="w-5 h-5
+                           text-cyan-400
+                           transition-transform duration-500
+                           group-hover:translate-x-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                    >
+                    </path>
+
+                  </svg>
+
+                </div>
 
               </div>
 
@@ -142,58 +243,132 @@
 
         </div>
 
+
+
+        <!-- CORREO -->
+        <div class="mb-6">
+
+          <label
+            for="correo"
+            class="block
+                   text-sm
+                   font-medium
+                   text-slate-300
+                   mb-2"
+          >
+            Correo electrónico
+          </label>
+
+          <input
+            id="correo"
+            type="email"
+            name="correo"
+            [(ngModel)]="correo"
+            placeholder="Ingrese el correo"
+            class="w-full
+                   bg-slate-950
+                   border-2 border-slate-700
+                   rounded-xl
+                   px-4 py-3
+                   text-white
+                   placeholder:text-slate-600
+                   outline-none
+                   transition-all duration-300
+                   focus:border-cyan-400
+                   focus:ring-2
+                   focus:ring-cyan-400/20"
+          >
+
+        </div>
+
+
+
+        <!-- CONTRASEÑA -->
+        <div class="mb-8">
+
+          <label
+            for="contrasenia"
+            class="block
+                   text-sm
+                   font-medium
+                   text-slate-300
+                   mb-2"
+          >
+            Contraseña
+          </label>
+
+          <input
+            id="contrasenia"
+            type="password"
+            name="contrasenia"
+            [(ngModel)]="contrasenia"
+            placeholder="Ingrese la contraseña"
+            class="w-full
+                   bg-slate-950
+                   border-2 border-slate-700
+                   rounded-xl
+                   px-4 py-3
+                   text-white
+                   placeholder:text-slate-600
+                   outline-none
+                   transition-all duration-300
+                   focus:border-cyan-400
+                   focus:ring-2
+                   focus:ring-cyan-400/20"
+          >
+
+        </div>
+
+
+
+        <!-- BOTÓN LOGIN -->
+        <button
+          type="button"
+          (click)="iniciarSesion()"
+          class="w-full
+                 bg-cyan-400
+                 text-slate-950
+                 font-bold
+                 py-3
+                 rounded-xl
+                 border-2 border-cyan-400
+                 shadow-[5px_5px_0_#020617]
+                 transition-all duration-300
+                 hover:-translate-x-1
+                 hover:-translate-y-1
+                 hover:shadow-[8px_8px_0_#020617]
+                 active:translate-x-0
+                 active:translate-y-0"
+        >
+          Iniciar sesión
+        </button>
+
+
+
+        <!-- REGISTRO -->
+        <p
+          class="mt-8
+                 text-center
+                 text-slate-400"
+        >
+          ¿No tienes una cuenta?
+
+          <a
+            routerLink="/register"
+            class="text-cyan-400
+                   font-semibold
+                   cursor-pointer
+                   hover:underline"
+          >
+            Regístrate
+          </a>
+
+        </p>
+
       </div>
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Ingrese el correo"
-        [(ngModel)]="correo">
-
-      <input
-        type="password"
-        name="password"
-        placeholder="Ingrese la Contraseña"
-        [(ngModel)]="contrasenia">
-
-      <button
-        class="btnn"
-        type="button"
-        (click)="iniciarSesion()">
-        <a href="#" (click)="$event.preventDefault()">Login</a>
-      </button>
-
-      <p class="link">No tienes una cuenta<br>
-        <a routerLink="/register">Registrate</a> aca</p>
-
-
-
-
     </div>
+
   </div>
 
-
-
-
-
-
-
-
-
-
 </div>
-
-
-<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>

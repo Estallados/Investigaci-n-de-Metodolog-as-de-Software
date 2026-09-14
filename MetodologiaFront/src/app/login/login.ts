@@ -12,8 +12,7 @@ import { UsuarioService } from '../services/usuario.service';
     FormsModule,
     RouterLink
   ],
-  templateUrl: './login.html',
-  styleUrl: './login.css'
+  templateUrl: './login.html'
 })
 export class Login {
 
@@ -30,7 +29,10 @@ export class Login {
 
   iniciarSesion(): void {
 
-    if (this.correo.trim() === '' || this.contrasenia.trim() === '') {
+    if (
+      this.correo.trim() === '' ||
+      this.contrasenia.trim() === ''
+    ) {
       this.mensaje = 'Debe completar todos los campos';
       return;
     }
