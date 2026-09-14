@@ -10,44 +10,61 @@ import org.springframework.stereotype.Service;
 import co.edu.unbosque.metodologiaespiral.dto.UsuarioDTO;
 import co.edu.unbosque.metodologiaespiral.entity.Usuario;
 import co.edu.unbosque.metodologiaespiral.repository.UsuarioRepository;
+import co.edu.unbosque.metodologiaespiral.util.CorreoUtil;
 
 @Service
 public class UsuarioService implements CRUDOperation<UsuarioDTO> {
 
 	@Autowired
 	private UsuarioRepository usuarioRepo;
+	
+	@Autowired
+	private CorreoUtil correoUtil;
 
 	public UsuarioService() {
 	}
 
 	@Override
 	public int create(UsuarioDTO data) {
+ 
 		try {
-			if (data.getCorreo() == null || data.getCorreo().trim().isEmpty()) {
-				return 2;
-			}
-
-			if (data.getContrasenia() == null || data.getContrasenia().trim().isEmpty()) {
-				return 2;
-			}
-
+ 
 			Usuario usuario = new Usuario();
-
+ 
 			usuario.setNombre(data.getNombre());
 			usuario.setCorreo(data.getCorreo());
 			usuario.setContrasenia(data.getContrasenia());
-
+ 
 			if (data.getRole() != null) {
 				usuario.setRole(data.getRole());
 			}
-
+ 
 			if (findUsernameAlreadyTaken(usuario)) {
 				return 1;
 			} else {
 				usuarioRepo.save(usuario);
+ 
+				String cuerpo = String.format(
+				        "Hola %s,\n\n"
+				                + "¡Bienvenido al contenido sobre Metodologías de Desarrollo de Software!\n\n"
+				                + "Tu registro se ha realizado correctamente y ya puedes acceder "
+				                + "al contenido disponible sobre diferentes metodologías de desarrollo de software.\n\n"
+				                + "En este espacio podrás conocer metodologías como Espiral, Cascada, Scrum, "
+				                + "Kanban y otras, comprendiendo sus características, ventajas y desventajas.\n\n"
+				                + "Esperamos que este material te ayude a conocer mejor las diferentes "
+				                + "formas de organizar y desarrollar proyectos de software.\n\n"
+				                + "¡Gracias por ser parte de este proyecto!\n\n"
+				                + "Equipo de Metodologías de Software",
+				        data.getNombre());
+ 
+				correoUtil.enviarCorreo(
+				        data.getCorreo(),
+				        "Bienvenido a la Metodología Espiral",
+				        cuerpo);
+ 
 				return 0;
 			}
-
+ 
 		} catch (Exception e) {
 			return 2;
 		}
