@@ -170,13 +170,12 @@ export class Panel implements OnInit {
       nombre: this.nombreProyecto,
       descripcion: this.descripcionProyecto,
       tareas: [],
-      usuarios: []
+      usuarios: this.usuarioService.usuarioActual ? [this.usuarioService.usuarioActual] : []
     };
 
     this.proyectoService.crearProyecto(nuevoProyecto).subscribe({
       next: (proyectoCreado) => {
         console.log('Proyecto creado:', proyectoCreado);
-        // Recargar los proyectos desde el backend
         this.cargarProyectos();
       },
       error: (error) => {
